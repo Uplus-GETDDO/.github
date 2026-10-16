@@ -1,6 +1,6 @@
 // 1·2차의 프로젝트 설명·디자인을 바탕으로 확정 기능을 최신화한 3차 발표.
 // 기준: getddo-spec main 6ff66b0 (2026-10-16), ticket/game/mission/attendance/drawing.
-// 미결정 게임 계약·로컬 작업 현황·멘토링 질문은 발표에 추가하지 않는다.
+// Q&A에는 사용자가 지정한 제목·문장만 표시한다.
 export const thirdRoundSlides = [
   {
     "type": "cover",
@@ -43,6 +43,11 @@ export const thirdRoundSlides = [
         "title": "사용자 흐름",
         "description": "응모권 획득부터 당첨 결과 확인까지",
         "target": 15
+      },
+      {
+        "title": "Q&A",
+        "description": "",
+        "target": 16
       }
     ]
   },
@@ -428,9 +433,9 @@ export const thirdRoundSlides = [
     "layout": "diagram",
     "title": "시스템 아키텍처",
     "label": "04 / SYSTEM ARCHITECTURE",
-    "description": "CloudFront·내부 ALB·EC2 두 대의 목표 설계입니다. RDS·Redis를 공유하고, S3 이미지 저장과 Parameter Store·SSM 배포 흐름을 연결합니다.",
+    "description": "",
     "src": "assets/round3-architecture.png",
-    "alt": "CloudFront, 내부 ALB, API 서버 두 대, 공용 RDS·Redis, 이미지 S3, Parameter Store와 SSM의 목표 아키텍처.",
+    "alt": "Vercel 프론트엔드, 브라우저, CloudFront, 내부 ALB, EC2 API 서버 두 대, RDS·Redis, S3, Parameter Store와 Systems Manager의 전체 아키텍처.",
     "caption": ""
   },
   {
@@ -452,6 +457,13 @@ export const thirdRoundSlides = [
     "src": "assets/round3-user-journey.svg",
     "alt": "출석은 브론즈, 미션·게임 보상은 무작위 등급 응모권을 얻습니다. 원하는 이벤트에서 보유한 등급별 사용 장수를 선택해 응모하고 발표된 결과를 확인합니다.",
     "caption": ""
+  },
+  {
+    "type": "text",
+    "title": "Q&A",
+    "label": "Q&A",
+    "description": "서비스 설명과 최신 설계를 바탕으로, 연동·검증 단계의 의견을 듣고 싶습니다.",
+    "paragraphs": []
   },
   {
     "type": "ending",
