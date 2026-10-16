@@ -3,6 +3,20 @@
 // 인프라 상태는 백엔드의 2026-10-14~15 배포 기록 기준이며 실시간 운영 확인이 아니다.
 export const thirdRoundSlides = [
   {
+    type: 'cover', title: 'GETDDO\n3차 멘토링', label: 'MENTORING 03',
+    description: '멤버십 이벤트 플랫폼 · 시스템 설계',
+    tags: ['시스템 아키텍처', 'ERD', '기술 스택'],
+  },
+  {
+    type: 'agenda', title: '목차', label: 'CONTENTS',
+    description: '시스템 구성과 데이터 모델, 주요 기술을 소개합니다.',
+    items: [
+      { title: '시스템 아키텍처', description: '애플리케이션 · 데이터 · 배포 구성', target: 2 },
+      { title: 'ERD', description: '핵심 엔티티 · 데이터 관계', target: 3 },
+      { title: '기술 스택', description: '프론트엔드 · 백엔드 주요 기술', target: 4 },
+    ],
+  },
+  {
     type: 'image', layout: 'journey', title: '시스템 아키텍처', label: '01 / SYSTEM ARCHITECTURE',
     description: '애플리케이션 · 데이터 · 배포 흐름과 후속 인프라 구성',
     src: 'assets/round3-architecture.svg', alt: '브라우저, Vercel 프론트, EC2 Spring Boot, RDS 및 S3·SSM 배포 흐름. 후속 HTTPS·Redis·확장 구성은 별도 표시.',
@@ -32,4 +46,5 @@ export const thirdRoundSlides = [
       { title: 'Redis', text: '도입 준비. 현재 요청 제한 기본 구현은 서버 메모리.' },
     ],
   },
+  { type: 'ending', title: '감사합니다', label: 'GETDDO', description: '3차 멘토링' },
 ];

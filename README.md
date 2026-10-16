@@ -17,7 +17,7 @@ python3 -m http.server 4173 --directory site
 - 메인: 1·2·3차 멘토링 → 발표 자료 선택. 2차는 통합 발표자료만 제공
 - 1차: 공통 표지 · 목차 · 이벤트 · 응모권 · 관리자 → 트랙별 아키텍처 · 질문 → 공통 감사합니다, 프론트 17장 / 백엔드 19장(개요·진행 상태·처리 흐름 포함)
 - 2차: 서비스 소개 → 사용자·관리자 기능 → 유사 서비스 분석·차별점 → 기술 스택·시스템 아키텍처 → ERD → 사용자 이용 흐름 → 멘토링 질문, 총 13장, `#/mentoring/2/combined/1`
-- 3차: 시스템 아키텍처 → ERD → 기술 스택, 통합 3장, `#/mentoring/3/combined/1`
+- 3차: 시스템 아키텍처 → ERD → 기술 스택, 본문 3장 · 표지·목차·마무리 포함 총 6장, `#/mentoring/3/combined/1`
 - 발표: 좌측 슬라이드 목록, 이전/다음, 전체 화면, 현재 슬라이드 주소 공유
 - 방향키 / Page Up·Down / Space: 이동, Home·End: 첫 장·마지막 장
 - F: 전체 화면 전환, 전체 화면 종료 버튼 또는 브라우저 Esc: 종료
@@ -91,9 +91,9 @@ python3 -m http.server 4173 --directory site
 - [캐시워크](https://cashwalk.com/): 걷기·챌린지를 통한 캐시 적립.
 - [이벤터스](https://event-us.kr/): 행사 개설·참가 신청·운영.
 
-3차는 `site/round3.js`의 `thirdRoundSlides`에서 관리하며 통합 발표 3장만 제공합니다. 1·2차 자료는 유지합니다.
+3차는 `site/round3.js`의 `thirdRoundSlides`에서 관리하며 기존 차수와 같은 표지 → 목차 → 본문 → 감사합니다 구성으로 제공합니다(본문 3장, 총 6장). 1·2차 자료는 유지합니다.
 
-- [3차 발표](https://uplus-getddo.github.io/.github/#/mentoring/3/combined/1): 시스템 아키텍처 → ERD → 기술 스택.
+- [3차 발표](https://uplus-getddo.github.io/.github/#/mentoring/3/combined/1): 표지 → 목차 → 시스템 아키텍처 → ERD → 기술 스택 → 감사합니다.
 - 확정 정책: `getddo-spec` main `00f16aa` (2026-10-16). 미결정 항목은 확정 정책으로 반영하지 않습니다.
 - 데이터 모델: `getddo-be` dev `88833ce`의 DBML과 Flyway 마이그레이션. 전체 45개 테이블 중 핵심 12개 테이블의 FK 관계를 요약합니다. V026의 접수·거절 기록도 반영했습니다.
 - [전체 스키마](https://github.com/Uplus-GETDDO/getddo-be/blob/88833cef9971068d8042bb4fd7078db3da65f381/docs/03-database/schema.dbml), [실제 마이그레이션](https://github.com/Uplus-GETDDO/getddo-be/tree/88833cef9971068d8042bb4fd7078db3da65f381/storage/db/src/main/resources/db/migration): DBML에 없는 후속 변경은 마이그레이션이 기준입니다.
