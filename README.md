@@ -17,7 +17,7 @@ python3 -m http.server 4173 --directory site
 - 메인: 1·2·3차 멘토링 → 발표 자료 선택. 2차는 통합 발표자료만 제공
 - 1차: 공통 표지 · 목차 · 이벤트 · 응모권 · 관리자 → 트랙별 아키텍처 · 질문 → 공통 감사합니다, 프론트 17장 / 백엔드 19장(개요·진행 상태·처리 흐름 포함)
 - 2차: 서비스 소개 → 사용자·관리자 기능 → 유사 서비스 분석·차별점 → 기술 스택·시스템 아키텍처 → ERD → 사용자 이용 흐름 → 멘토링 질문, 총 13장, `#/mentoring/2/combined/1`
-- 3차: 1·2차의 프로젝트 설명·기능·비교·흐름을 가져와 최신 스펙·로컬 변경을 반영한 통합 17장, `#/mentoring/3/combined/1`
+- 3차: 1·2차의 프로젝트 설명·기능·비교·흐름을 가져와 최신 보상·등급 기능을 반영한 통합 17장, `#/mentoring/3/combined/1`
 - 발표: 좌측 슬라이드 목록, 이전/다음, 전체 화면, 현재 슬라이드 주소 공유
 - 방향키 / Page Up·Down / Space: 이동, Home·End: 첫 장·마지막 장
 - F: 전체 화면 전환, 전체 화면 종료 버튼 또는 브라우저 Esc: 종료
@@ -91,17 +91,16 @@ python3 -m http.server 4173 --directory site
 - [캐시워크](https://cashwalk.com/): 걷기·챌린지를 통한 캐시 적립.
 - [이벤터스](https://event-us.kr/): 행사 개설·참가 신청·운영.
 
-3차는 `site/round3.js`의 `thirdRoundSlides`에서 관리합니다. 1차의 문제 정의·해결 방향·응모권·진행 상태와 2차의 전체 발표를 독립 스냅샷으로 가져와 최신화했습니다. 기존 1·2차 자료는 보존합니다.
+3차는 `site/round3.js`의 `thirdRoundSlides`에서 관리합니다. 1·2차의 프로젝트 설명과 디자인을 가져와 최신 확정 기능을 반영했습니다. 기존 1·2차 자료는 보존합니다.
 
-- [3차 발표](https://uplus-getddo.github.io/.github/#/mentoring/3/combined/1): 표지 → 목차 → 서비스 소개 → 문제 정의 → 해결 방향 → 사용자 기능 → 관리자 기능 → 응모권 → 비교 → 차별점 → 기술 스택 → 아키텍처 → ERD → 사용자 흐름 → 진행 상태 → 멘토링 질문 → 감사합니다. 총 17장입니다.
-- 확정 정책: `getddo-spec` main `00f16aa` (2026-10-16). 출석 브론즈·미션/게임 등급 지급, 마감 5분 후 자동 추첨·관리자 수동 공개, 장별 응모권 이력과 이벤트 취소 반환을 반영했습니다. 중단·재개, 응모권 회수, 정상 응모의 추첨 제외와 동일 실행 재선정 설명은 옮기지 않았습니다.
-- 로컬 미커밋 자료도 대조했습니다. `getddo-spec/02-domain/entry.md`와 채택된 로컬 ADR-014의 Redis 장애 시 빈도 제한만 생략하는 선택, 백엔드 `redis.md`·`parameter-store.md`·`image-storage.md`·`cloudfront-alb-plan.md`, 실제 Terraform·배포 스크립트·앱 설정이 대상입니다. 로컬 미결정 문서의 오래된 자동 공개 문구는 최신 확정 정책을 덮어쓰는 근거로 사용하지 않았습니다.
-- Redis는 2026-10-16 로컬 기록의 생성·available·API 서버 PONG 확인을 반영했습니다. Parameter Store 설정 13개 등록·조회 검증과 설정 전달 코드 준비는 실제 서버 배포·요청 제한 연동 완료와 구분합니다. 이 작업에서 AWS를 직접 조회하거나 배포하지 않았습니다.
-- 아키텍처는 로컬 미커밋 `docs/assets/draw.io/getddo-aws-two-api-services.png`를 그대로 반영했습니다. CloudFront·내부 ALB·API 서버 두 대·이미지 저장 경로는 목표 설계로 설명하며, 기존 단일 서버 배포 기록과 구분합니다.
-- ERD는 `getddo-be` dev `88833ce`의 DBML과 Flyway를 대조한 전체 45개 중 핵심 12개 테이블 요약입니다. V026의 nullable 응모자 연결과 접수·거절 모델을 반영했습니다. [전체 스키마](https://github.com/Uplus-GETDDO/getddo-be/blob/88833cef9971068d8042bb4fd7078db3da65f381/docs/03-database/schema.dbml), [실제 마이그레이션](https://github.com/Uplus-GETDDO/getddo-be/tree/88833cef9971068d8042bb4fd7078db3da65f381/storage/db/src/main/resources/db/migration)을 함께 확인합니다.
-- 프론트 기술은 dev `cc1ea7b`와 로컬 `package.json`을 대조했습니다. 미커밋 lockfile 변경은 플랫폼 메타데이터 제거로, 새로운 기술 도입으로 해석하지 않았습니다.
-- 디자인은 기존 표지·목차·카드·비교표·기술스택 아이콘 배열·왼쪽 설명/오른쪽 아키텍처·사용자 흐름·감사합니다 레이아웃을 유지합니다.
-- 현재 이미지: `site/assets/round3-architecture.png`, `site/assets/round3-erd.svg`. 앞서 만든 `round3-architecture.svg`는 보존하되 현재 발표에서 사용하지 않습니다.
+- [3차 발표](https://uplus-getddo.github.io/.github/#/mentoring/3/combined/1): 표지 → 목차 → 서비스 소개 → 문제 정의 → 해결 방향 → 사용자 기능 → 관리자 기능 → 게임·미션 보상 → 응모권 등급 → 응모권 → 비교 → 차별점 → 기술 스택 → 아키텍처 → ERD → 사용자 흐름 → 감사합니다. 총 17장입니다.
+- 기능 기준: `getddo-spec` main `6ff66b0` (2026-10-16)의 `02-domain/ticket.md`, `game.md`, `mission.md`, `attendance.md`, `drawing.md`. 게임·미션 보상 조건을 충족하면 무작위 등급 응모권 1장을 지급합니다. 브론즈·실버·골드 확률은 80%·18%·2%, 가중치 적용 이벤트의 장당 가중치는 1·3·5입니다. 기본·연속 출석은 브론즈 고정입니다.
+- 게임은 서버가 유효한 완료 결과로 인정한 한 판의 최소 점수(타꼬런 400점, 글자색깔 맞추기 50점)를 충족했을 때 사용자별·게임별 하루 1회 보상합니다. 미션은 사용자당 미션별 1회입니다. 지급 장수는 1장이며 등급 획득 확률과 이벤트 당첨 확률은 다릅니다.
+- 차별점은 무작위 등급 보상, 등급별 선택 응모, 반복 참여와 공통 응모권의 연결을 중심으로 설명합니다. 로컬 작업 현황과 멘토링 질문은 포함하지 않습니다.
+- 아키텍처 그림은 CloudFront·내부 ALB·EC2 두 대·공유 RDS/Redis·S3·Parameter Store·SSM의 목표 설계를 표현합니다. 현재 배포 완료 상태를 뜻하지 않습니다.
+- ERD는 `getddo-be` dev `88833ce`의 DBML과 Flyway를 대조한 전체 45개 중 핵심 12개 테이블 요약입니다. [전체 스키마](https://github.com/Uplus-GETDDO/getddo-be/blob/88833cef9971068d8042bb4fd7078db3da65f381/docs/03-database/schema.dbml), [실제 마이그레이션](https://github.com/Uplus-GETDDO/getddo-be/tree/88833cef9971068d8042bb4fd7078db3da65f381/storage/db/src/main/resources/db/migration)을 함께 확인합니다.
+- 프론트 기술은 dev `cc1ea7b`의 `package.json` 기준입니다. 디자인은 기존 표지·목차·카드·비교표·기술스택 아이콘 배열·아키텍처·사용자 흐름·감사합니다 레이아웃을 유지합니다.
+- 현재 이미지: `site/assets/round3-architecture.png`, `site/assets/round3-erd.svg`, `site/assets/round3-user-journey.svg`.
 
 ## 디자인과 요구사항
 

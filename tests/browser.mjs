@@ -147,18 +147,30 @@ try {
   assert.equal(latest.length, 17);
   assert.deepEqual(latest.map(slide => slide.title), [
     'GETDDO\n3차 멘토링', '목차', 'GETDDO 서비스 소개', '문제 정의', '해결 방향',
-    '사용자 기능', '관리자 기능', '응모권', '유사 서비스 분석', 'GETDDO의 차별점',
-    '핵심 기술 스택', '시스템 아키텍처', 'ERD', '사용자 이용 흐름', '진행 상태',
-    '멘토님께 여쭤볼 내용', '감사합니다',
+    '사용자 기능', '관리자 기능', '게임·미션 보상', '응모권 등급', '응모권', '유사 서비스 분석', 'GETDDO의 차별점',
+    '핵심 기술 스택', '시스템 아키텍처', 'ERD', '사용자 이용 흐름', '감사합니다',
   ]);
-  assert.deepEqual(latest.find(slide => slide.title === 'GETDDO 서비스 소개'), rounds[1].decks.combined.slides.find(slide => slide.title === 'GETDDO 서비스 소개'));
-  assert.deepEqual(latest.find(slide => slide.title === '유사 서비스 분석'), rounds[1].decks.combined.slides.find(slide => slide.title === '유사 서비스 분석'));
+  assert.deepEqual(latest.find(slide => slide.title === 'GETDDO 서비스 소개').cards[1], rounds[1].decks.combined.slides.find(slide => slide.title === 'GETDDO 서비스 소개').cards[1]);
+  assert.deepEqual(latest.find(slide => slide.title === '유사 서비스 분석').rows.map(row => row.slice(0, 2)), rounds[1].decks.combined.slides.find(slide => slide.title === '유사 서비스 분석').rows.map(row => row.slice(0, 2)));
+  assert.equal(latest.some(slide => slide.type === 'questions'), false);
+  assert.doesNotMatch(JSON.stringify(latest), /로컬|미커밋|PONG|진행 상태|멘토님께/);
+  const rewards = latest.find(slide => slide.title === '게임·미션 보상');
+  assert.match(rewards.cards[0].text, /유효한 완료 결과.*최소 점수.*1장/);
+  assert.match(rewards.cards[0].tag, /400점.*50점/);
+  const grades = latest.find(slide => slide.title === '응모권 등급');
+  assert.deepEqual(grades.cards.map(card => card.title), ['브론즈', '실버', '골드']);
+  for (const [index, probability, weight] of [[0, 80, 1], [1, 18, 3], [2, 2, 5]]) {
+    assert.match(grades.cards[index].tag, new RegExp(`확률 ${probability}%.*가중치 ${weight}`));
+  }
+  const difference = JSON.stringify(latest.find(slide => slide.title === 'GETDDO의 차별점'));
+  assert.match(difference, /무작위 등급/);
+  assert.match(difference, /등급별 사용 장수를 직접 선택/);
   const adminText = JSON.stringify(latest.find(slide => slide.title === '관리자 기능'));
   assert.doesNotMatch(adminText, /중단·재개|응모권을 회수|참여 허용·제외/);
   assert.match(adminText, /자동 추첨/);
   assert.match(adminText, /수동 공개/);
   assert.doesNotMatch(JSON.stringify(latest), /같은 입력으로 결과를 다시|추첨 당시 조건으로 결과를 재현/);
-  assert.match(latest.find(slide => slide.type === 'tech').items.find(item => item.icon === 'redis').role, /서버 연결 확인/);
+
   await page.goto(base);
   await page.locator('a[href="#/mentoring/3/combined/1"]').click();
   await page.waitForSelector('.slide-cover');
@@ -178,13 +190,13 @@ try {
   await page.goto(`${base}#/mentoring/2/combined/9`);
   await page.waitForSelector('.diagram-slide');
   const architectureFont = await page.locator('.slide-heading h1').evaluate(el => getComputedStyle(el).fontSize);
-  await page.goto(`${base}#/mentoring/3/combined/12`);
+  await page.goto(`${base}#/mentoring/3/combined/14`);
   await page.waitForSelector('.diagram-slide');
   assert.equal(await page.locator('.slide-heading h1').evaluate(el => getComputedStyle(el).fontSize), architectureFont);
   const heading = await page.locator('.slide-heading').boundingBox();
   const diagram = await page.locator('.image-layout img').boundingBox();
   assert.ok(diagram.x > heading.x + heading.width, 'architecture keeps the original left heading/right diagram');
-  pass('third mentoring carries forward project narrative and design while updating current policies and local Redis progress');
+  pass('third mentoring preserves the project narrative and design, explains graded rewards, and excludes work status and questions');
   for (let i = 1; i <= latest.length; i++) {
     await page.goto(`${base}#/mentoring/3/combined/${i}`);
     await page.evaluate(() => document.fonts.ready);
