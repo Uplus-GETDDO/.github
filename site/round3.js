@@ -1,5 +1,5 @@
-// 1·2차의 프로젝트 설명·디자인을 바탕으로 확정 기능을 최신화한 3차 발표.
-// 기준: getddo-spec main 6ff66b0 (2026-10-16), ticket/game/mission/attendance/drawing.
+// 1·2차의 프로젝트 설명·디자인·마스코트·게임 컨셉을 가져와 최신 확정 기능을 반영.
+// 기준: getddo-spec main 32e1055 (2026-10-16). 타꼬런 조작 설명은 실제 FE 구현 기준.
 // Q&A에는 사용자가 지정한 제목·문장만 표시한다.
 export const thirdRoundSlides = [
   {
@@ -25,29 +25,34 @@ export const thirdRoundSlides = [
         "target": 2
       },
       {
+        "title": "브랜드·게임 컨셉",
+        "description": "디자인 시스템 · 마스코트 · 플레이 경험",
+        "target": 5
+      },
+      {
         "title": "주요 기능",
         "description": "사용자 · 관리자 · 활동별 보상 · 응모권 등급",
-        "target": 5
+        "target": 8
       },
       {
         "title": "유사 서비스·차별점",
         "description": "등급 보상 · 선택 응모 · 반복 참여",
-        "target": 10
+        "target": 13
       },
       {
         "title": "기술·데이터 설계",
         "description": "기술 스택 · 시스템 아키텍처 · ERD",
-        "target": 12
+        "target": 15
       },
       {
         "title": "사용자 흐름",
         "description": "응모권 획득부터 당첨 결과 확인까지",
-        "target": 15
+        "target": 18
       },
       {
         "title": "Q&A",
         "description": "",
-        "target": 16
+        "target": 19
       }
     ]
   },
@@ -136,6 +141,64 @@ export const thirdRoundSlides = [
         "title": "당첨 취소·빈 자리 재추첨",
         "text": "관리자가 사유를 남겨 개별 당첨을 취소하고 빈 자리만 재추첨합니다. 기존 당첨자와 실행 이력을 유지합니다.",
         "tag": "유지 결과와 새 결과를 연결",
+        "tone": "mint"
+      }
+    ]
+  },
+  {
+    "type": "palette",
+    "title": "디자인 시스템",
+    "label": "02 / DESIGN SYSTEM",
+    "description": "브랜드는 마젠타 · 응모권은 옐로 · 놀이는 파스텔"
+  },
+  {
+    "type": "mascot",
+    "title": "마스코트 — 타코야끼",
+    "label": "02 / MASCOT",
+    "description": "응모·추첨과 놀이를 연결하는 서비스 캐릭터",
+    "reasons": [
+      {
+        "title": "추첨공을 닮은 모양",
+        "text": "동그란 형태로 응모·추첨 서비스의 컨셉 표현"
+      },
+      {
+        "title": "무너의 친구",
+        "text": "유플러스 캐릭터 ‘무너’의 친구라는 설정으로 브랜드와 연결"
+      }
+    ]
+  },
+  {
+    "type": "cards",
+    "title": "게임 컨셉",
+    "label": "02 / GAME CONCEPT",
+    "description": "마스코트와 가벼운 플레이를 등급 응모권 보상으로 연결",
+    "cards": [
+      {
+        "label": "TAKKO RUN",
+        "title": "타꼬런",
+        "text": "타코야끼 캐릭터가 소스병과 꼬치를 뛰어넘으며 달립니다. 스페이스바·위 방향키·화면 터치로 점프합니다.",
+        "tag": "마스코트를 직접 조작하는 러닝 게임",
+        "tone": "mint"
+      },
+      {
+        "label": "COLOR WORD",
+        "title": "글자색깔 맞추기",
+        "text": "글자의 뜻이 아닌 칠해진 색을 고릅니다. 정답마다 10점을 얻고, 오답·시간 초과로 목숨 3개를 모두 잃으면 종료합니다.",
+        "tag": "정답이 쌓일수록 짧아지는 제한 시간",
+        "tone": "yellow"
+      },
+      {
+        "label": "PLAY FLOW",
+        "title": "플레이부터 보상 확인까지",
+        "text": "게임 선택 → 규칙 안내 → 플레이 → 서버 결과 판정 → 점수·보상 확인. 개인 최고점·누적 점수를 기록합니다.",
+        "tag": "플레이 횟수 제한 없이 재도전",
+        "tone": "pink"
+      },
+      {
+        "label": "REWARD",
+        "title": "등급 응모권으로 연결",
+        "text": "완료 결과가 유효하고 최소 보상 점수를 충족하면 게임별 하루 1회 무작위 등급 응모권 1장을 받습니다.",
+        "tag": "타꼬런 400점 · 글자색깔 맞추기 50점",
         "tone": "mint"
       }
     ]

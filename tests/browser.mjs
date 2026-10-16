@@ -144,10 +144,10 @@ try {
   pass('all published slides fit canvas without footer overlap; deep links survive reload');
   const third = rounds.find(round => round.id === '3');
   const latest = third.decks.combined.slides;
-  assert.equal(latest.length, 18);
+  assert.equal(latest.length, 21);
   assert.deepEqual(latest.map(slide => slide.title), [
     'GETDDO\n3차 멘토링', '목차', 'GETDDO 서비스 소개', '문제 정의', '해결 방향',
-    '사용자 기능', '관리자 기능', '게임·미션 보상', '응모권 등급', '응모권', '유사 서비스 분석', 'GETDDO의 차별점',
+    '디자인 시스템', '마스코트 — 타코야끼', '게임 컨셉', '사용자 기능', '관리자 기능', '게임·미션 보상', '응모권 등급', '응모권', '유사 서비스 분석', 'GETDDO의 차별점',
     '핵심 기술 스택', '시스템 아키텍처', 'ERD', '사용자 이용 흐름', 'Q&A', '감사합니다',
   ]);
   assert.deepEqual(latest.find(slide => slide.title === 'GETDDO 서비스 소개').cards[1], rounds[1].decks.combined.slides.find(slide => slide.title === 'GETDDO 서비스 소개').cards[1]);
@@ -158,6 +158,14 @@ try {
   assert.equal(qa.description, '서비스 설명과 최신 설계를 바탕으로, 연동·검증 단계의 의견을 듣고 싶습니다.');
   assert.deepEqual(qa.paragraphs, []);
   assert.equal(latest.find(slide => slide.title === '시스템 아키텍처').description, '');
+  const originalConcepts = rounds[0].decks.frontend.slides;
+  const mascot = latest.find(slide => slide.type === 'mascot');
+  assert.deepEqual(mascot.reasons, originalConcepts.find(slide => slide.type === 'mascot').reasons);
+  assert.equal(latest.find(slide => slide.type === 'palette').description, originalConcepts.find(slide => slide.type === 'palette').description);
+  const gameConcept = latest.find(slide => slide.title === '게임 컨셉');
+  assert.match(JSON.stringify(gameConcept), /타꼬런/);
+  assert.match(JSON.stringify(gameConcept), /글자색깔 맞추기/);
+  assert.doesNotMatch(JSON.stringify(gameConcept), /게임 종류는 미확정|획득 조건과 적용 단위는 미정/);
   const rewards = latest.find(slide => slide.title === '게임·미션 보상');
   assert.match(rewards.cards[0].text, /유효한 완료 결과.*최소 점수.*1장/);
   assert.match(rewards.cards[0].tag, /400점.*50점/);
@@ -194,7 +202,7 @@ try {
   await page.goto(`${base}#/mentoring/2/combined/9`);
   await page.waitForSelector('.diagram-slide');
   const architectureFont = await page.locator('.slide-heading h1').evaluate(el => getComputedStyle(el).fontSize);
-  await page.goto(`${base}#/mentoring/3/combined/14`);
+  await page.goto(`${base}#/mentoring/3/combined/${latest.findIndex(slide => slide.title === '시스템 아키텍처') + 1}`);
   await page.waitForSelector('.diagram-slide');
   assert.equal(await page.locator('.slide-heading h1').evaluate(el => getComputedStyle(el).fontSize), architectureFont);
   const heading = await page.locator('.slide-heading').boundingBox();
@@ -202,7 +210,7 @@ try {
   assert.ok(diagram.x > heading.x + heading.width, 'architecture keeps the original left heading/right diagram');
   assert.equal(await page.locator('.slide-heading > p').innerText(), '');
   assert.equal(await page.locator('.image-layout figcaption').innerText(), '');
-  await page.goto(`${base}#/mentoring/3/combined/17`);
+  await page.goto(`${base}#/mentoring/3/combined/${latest.findIndex(slide => slide.title === 'Q&A') + 1}`);
   await page.waitForSelector('.slide-text');
   assert.equal(await page.locator('.slide-heading h1').innerText(), 'Q&A');
   assert.equal(await page.locator('.slide-content').innerText(), '');
@@ -216,7 +224,7 @@ try {
   assert.equal(await page.locator('.slide-ending .ending-mascot').count(), 1);
   assert.equal(await page.locator('[data-action=next]').isDisabled(), true);
   await page.reload();
-  assert.match(page.url(), /3\/combined\/18$/);
+  assert.match(page.url(), /3\/combined\/21$/);
   await page.keyboard.press('Home');
   await page.waitForSelector('.slide-cover');
   pass('third mentoring full presentation: agenda destinations, all image assets, boundaries and reload');
