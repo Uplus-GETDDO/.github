@@ -155,7 +155,7 @@ try {
   assert.equal(latest.some(slide => slide.type === 'questions'), false);
   assert.doesNotMatch(JSON.stringify(latest), /로컬|미커밋|PONG|진행 상태|멘토님께/);
   const qa = latest.find(slide => slide.title === 'Q&A');
-  assert.equal(qa.description, '서비스 설명과 최신 설계를 바탕으로, 연동·검증 단계의 의견을 듣고 싶습니다.');
+  assert.equal(qa.description, '');
   assert.deepEqual(qa.paragraphs, []);
   assert.equal(latest.find(slide => slide.title === '시스템 아키텍처').description, '');
   const originalConcepts = rounds[0].decks.frontend.slides;
@@ -212,6 +212,8 @@ try {
   await page.goto(`${base}#/mentoring/3/combined/${latest.findIndex(slide => slide.title === 'Q&A') + 1}`);
   await page.waitForSelector('.slide-text');
   assert.equal(await page.locator('.slide-heading h1').innerText(), 'Q&A');
+  assert.equal(await page.locator('.slide-heading > p').innerText(), '');
+  assert.equal(await page.locator('.slide-heading h1').evaluate(el => getComputedStyle(el).fontSize), '96px');
   assert.equal(await page.locator('.slide-content').innerText(), '');
   const erdIndex = latest.findIndex(slide => slide.title === 'ERD');
   await page.goto(`${base}#/mentoring/3/combined/${erdIndex + 1}`);

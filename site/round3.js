@@ -1,6 +1,6 @@
 // 1·2차의 프로젝트 설명·컨셉을 유지하고 최신 스펙·GD-212 전체 ERD를 반영.
 // 기능 기준: getddo-spec main bda7722. ERD: docs/GD-212 25754f8.
-// Q&A에는 사용자가 지정한 제목·문장만 표시한다.
+// Q&A에는 제목만 표시한다.
 export const thirdRoundSlides = [
   {
     "type": "cover",
@@ -526,8 +526,9 @@ export const thirdRoundSlides = [
   {
     "type": "text",
     "title": "Q&A",
+    "layout": "qa",
     "label": "Q&A",
-    "description": "서비스 설명과 최신 설계를 바탕으로, 연동·검증 단계의 의견을 듣고 싶습니다.",
+    "description": "",
     "paragraphs": []
   },
   {
