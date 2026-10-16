@@ -160,9 +160,29 @@ try {
       await page.waitForFunction(() => [...document.querySelectorAll('.image-layout img')].every(img => img.complete && img.naturalWidth > 0));
     }
   }
-  for (const i of [1, 2, 6]) {
+  const second = rounds.find(round => round.id === '2');
+  const previousStack = second.decks.combined.slides.find(slide => slide.type === 'tech');
+  const currentStack = third.decks.combined.slides.find(slide => slide.type === 'tech');
+  const identity = ({ icon, track, name }) => ({ icon, track, name });
+  assert.deepEqual(currentStack.items.map(identity), previousStack.items.map(identity));
+  assert.equal(currentStack.notesTitle, previousStack.notesTitle);
+  await page.goto(`${base}#/mentoring/2/combined/9`);
+  await page.waitForSelector('.diagram-slide');
+  const architectureFont = await page.locator('.slide-heading h1').evaluate(el => getComputedStyle(el).fontSize);
+  await page.goto(`${base}#/mentoring/3/combined/3`);
+  await page.waitForSelector('.diagram-slide');
+  assert.equal(await page.locator('.slide-heading h1').evaluate(el => getComputedStyle(el).fontSize), architectureFont);
+  const heading = await page.locator('.slide-heading').boundingBox();
+  const diagram = await page.locator('.image-layout img').boundingBox();
+  assert.ok(diagram.x > heading.x + heading.width, 'architecture keeps the original left heading/right diagram');
+  await page.goto(`${base}#/mentoring/3/combined/4`);
+  await page.waitForSelector('.slide-image');
+  assert.equal(await page.locator('.journey-slide').count(), 0);
+  pass('third mentoring matches the original architecture layout, heading size and technology icon columns');
+  for (const i of [1, 2, 3, 4, 5, 6]) {
     await page.goto(`${base}#/mentoring/3/combined/${i}`);
     await page.evaluate(() => document.fonts.ready);
+    await page.waitForFunction(() => [...document.images].every(img => img.complete));
     await page.screenshot({ path: `/tmp/getddo-round3-format-${i}.png` });
   }
   assert.equal(await page.locator('.slide-ending .ending-mascot').count(), 1);

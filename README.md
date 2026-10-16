@@ -97,8 +97,9 @@ python3 -m http.server 4173 --directory site
 - 확정 정책: `getddo-spec` main `00f16aa` (2026-10-16). 미결정 항목은 확정 정책으로 반영하지 않습니다.
 - 데이터 모델: `getddo-be` dev `88833ce`의 DBML과 Flyway 마이그레이션. 전체 45개 테이블 중 핵심 12개 테이블의 FK 관계를 요약합니다. V026의 접수·거절 기록도 반영했습니다.
 - [전체 스키마](https://github.com/Uplus-GETDDO/getddo-be/blob/88833cef9971068d8042bb4fd7078db3da65f381/docs/03-database/schema.dbml), [실제 마이그레이션](https://github.com/Uplus-GETDDO/getddo-be/tree/88833cef9971068d8042bb4fd7078db3da65f381/storage/db/src/main/resources/db/migration): DBML에 없는 후속 변경은 마이그레이션이 기준입니다.
-- 프론트 기술: `getddo-fe` dev `cc1ea7b`의 `package.json` 기준. 표시 버전은 선언 범위의 주요 버전이며 설치 버전을 뜻하지 않습니다.
+- 프론트 기술: `getddo-fe` dev `cc1ea7b`의 `package.json` 기준. 목록은 선언된 기술을 기준으로 하며 실제 서비스 연동 완료를 뜻하지 않습니다.
 - 인프라: 백엔드의 2026-10-14~15 배포 기록과 준비 문서 기준. EC2 1대·RDS와 후속 CloudFront·ALB·Redis·이미지 저장·2대 운영을 구분합니다. 운영 자원을 실시간 조회한 결과가 아닙니다.
+- 디자인: 2차의 왼쪽 설명·오른쪽 AWS 영역도 배치, 기본 ERD 이미지 영역과 기술스택 7개 아이콘·열 순서를 유지합니다. AWS 아이콘은 백엔드의 기존 `docs/assets/draw.io/getddo-aws-current.drawio`에 포함된 이미지를 재사용합니다.
 - 다이어그램 원본: `site/assets/round3-architecture.svg`, `site/assets/round3-erd.svg`.
 
 ## 디자인과 요구사항
