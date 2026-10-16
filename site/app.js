@@ -65,7 +65,8 @@ function renderBody(slide) {
       const source = String(slide.src || '');
       if (!source) return `<div class="image-placeholder"><span>${escape(slide.title)}</span><p>${escape(slide.placeholder || '이미지 작성 예정')}</p></div>`;
       const safeSource = /^(assets\/|https:\/\/)/.test(source) ? source : '';
-      return `<figure class="image-layout"><img src="${escape(safeSource)}" alt="${escape(slide.alt || slide.title)}"><figcaption>${escape(slide.caption || '')}</figcaption></figure>`;
+      const picture = `<img src="${escape(safeSource)}" alt="${escape(slide.alt || slide.title)}">`;
+      return `<figure class="image-layout">${slide.zoomable ? `<a href="${escape(safeSource)}" target="_blank" rel="noopener" aria-label="${escape(slide.title)} 원본 이미지 열기">${picture}</a>` : picture}<figcaption>${escape(slide.caption || '')}</figcaption></figure>`;
     }
     default: return '<p class="notice">지원하지 않는 레이아웃입니다. content.js의 type을 확인하세요.</p>';
   }

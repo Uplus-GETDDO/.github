@@ -43,7 +43,7 @@ assert.deepEqual(combined.slides.filter(slide => slide.type === 'tech' && slide.
 console.log('PASS shared cover/agenda/requirements, event/ticket/admin sections, agenda destinations');
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../site');
-const types = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.svg': 'image/svg+xml', '.woff2': 'font/woff2' };
+const types = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.svg': 'image/svg+xml', '.png': 'image/png', '.woff2': 'font/woff2' };
 let overrideContent = null;
 const server = createServer(async (req, res) => {
   let path = decodeURIComponent(new URL(req.url, 'http://localhost').pathname);
@@ -144,11 +144,11 @@ try {
   pass('all published slides fit canvas without footer overlap; deep links survive reload');
   const third = rounds.find(round => round.id === '3');
   const latest = third.decks.combined.slides;
-  assert.equal(latest.length, 21);
+  assert.equal(latest.length, 22);
   assert.deepEqual(latest.map(slide => slide.title), [
     'GETDDO\n3차 멘토링', '목차', 'GETDDO 서비스 소개', '문제 정의', '해결 방향',
     '디자인 시스템', '마스코트 — 타코야끼', '게임 컨셉', '사용자 기능', '관리자 기능', '게임·미션 보상', '응모권 등급', '응모권', '유사 서비스 분석', 'GETDDO의 차별점',
-    '핵심 기술 스택', '시스템 아키텍처', 'ERD', '사용자 이용 흐름', 'Q&A', '감사합니다',
+    '핵심 기술 스택', '시스템 아키텍처', 'ERD', '전체 서비스 워크플로우', '사용자 이용 흐름', 'Q&A', '감사합니다',
   ]);
   assert.deepEqual(latest.find(slide => slide.title === 'GETDDO 서비스 소개').cards[1], rounds[1].decks.combined.slides.find(slide => slide.title === 'GETDDO 서비스 소개').cards[1]);
   assert.deepEqual(latest.find(slide => slide.title === '유사 서비스 분석').rows.map(row => row.slice(0, 2)), rounds[1].decks.combined.slides.find(slide => slide.title === '유사 서비스 분석').rows.map(row => row.slice(0, 2)));
@@ -214,6 +214,21 @@ try {
   await page.waitForSelector('.slide-text');
   assert.equal(await page.locator('.slide-heading h1').innerText(), 'Q&A');
   assert.equal(await page.locator('.slide-content').innerText(), '');
+  const erdIndex = latest.findIndex(slide => slide.title === 'ERD');
+  await page.goto(`${base}#/mentoring/3/combined/${erdIndex + 1}`);
+  await page.waitForSelector('.image-layout a');
+  const [originalErd] = await Promise.all([
+    page.waitForEvent('popup'),
+    page.locator('.image-layout a').click(),
+  ]);
+  await originalErd.waitForLoadState('domcontentloaded');
+  assert.match(originalErd.url(), /assets\/round3-erd\.png$/);
+  await originalErd.waitForFunction(() => document.querySelector('img')?.naturalWidth === 8030);
+  await originalErd.close();
+  const workflow = latest.find(slide => slide.title === '전체 서비스 워크플로우');
+  assert.match(workflow.alt, /5분 후 자동 추첨.*수동 공개/);
+  assert.match(workflow.alt, /취소.*반환.*알림/);
+  pass('complete ERD opens its original image and service workflow covers draw, publication and cancellation');
   pass('third mentoring preserves the project narrative and design, explains graded rewards, and excludes work status and questions');
   for (let i = 1; i <= latest.length; i++) {
     await page.goto(`${base}#/mentoring/3/combined/${i}`);
@@ -224,7 +239,7 @@ try {
   assert.equal(await page.locator('.slide-ending .ending-mascot').count(), 1);
   assert.equal(await page.locator('[data-action=next]').isDisabled(), true);
   await page.reload();
-  assert.match(page.url(), /3\/combined\/21$/);
+  assert.match(page.url(), /3\/combined\/22$/);
   await page.keyboard.press('Home');
   await page.waitForSelector('.slide-cover');
   pass('third mentoring full presentation: agenda destinations, all image assets, boundaries and reload');

@@ -1,5 +1,5 @@
-// 1·2차의 프로젝트 설명·디자인·마스코트·게임 컨셉을 가져와 최신 확정 기능을 반영.
-// 기준: getddo-spec main 32e1055 (2026-10-16). 타꼬런 조작 설명은 실제 FE 구현 기준.
+// 1·2차의 프로젝트 설명·컨셉을 유지하고 최신 스펙·GD-212 전체 ERD를 반영.
+// 기능 기준: getddo-spec main bda7722. ERD: docs/GD-212 25754f8.
 // Q&A에는 사용자가 지정한 제목·문장만 표시한다.
 export const thirdRoundSlides = [
   {
@@ -45,14 +45,14 @@ export const thirdRoundSlides = [
         "target": 15
       },
       {
-        "title": "사용자 흐름",
-        "description": "응모권 획득부터 당첨 결과 확인까지",
+        "title": "서비스 흐름",
+        "description": "보상·응모·추첨·공개 · 취소·반환",
         "target": 18
       },
       {
         "title": "Q&A",
         "description": "",
-        "target": 19
+        "target": 20
       }
     ]
   },
@@ -506,10 +506,22 @@ export const thirdRoundSlides = [
     "title": "ERD",
     "label": "04 / DATA MODEL",
     "track": "backend",
-    "description": "사용자·이벤트·응모권·응모·추첨을 중심으로 주요 엔티티와 관계 설명",
-    "src": "assets/round3-erd.svg",
-    "alt": "최신 DBML과 V026 마이그레이션을 대조한 사용자, 이벤트, 응모권, 응모, 추첨과 공개의 핵심 관계.",
-    "caption": "전체 45개 테이블 중 핵심 관계 요약 · 응모권 장별 이력 · 접수·거절 기록 · 추첨 실행·결과 공개"
+    "description": "45개 테이블의 전체 데이터 모델 · 이미지를 클릭하면 원본을 확대할 수 있습니다.",
+    "src": "assets/round3-erd.png",
+    "alt": "docs/GD-212의 2026-10-16 전체 ERD. 도메인별 45개 테이블과 외래 키 관계.",
+    "caption": "",
+    "layout": "journey",
+    "zoomable": true
+  },
+  {
+    "type": "image",
+    "layout": "journey",
+    "title": "전체 서비스 워크플로우",
+    "label": "05 / SERVICE WORKFLOW",
+    "description": "활동·보상부터 응모·추첨·관리자 공개까지 · 이벤트 취소 시 응모권 반환",
+    "src": "assets/round3-workflow.svg",
+    "alt": "출석·미션·게임 → 보상 조건 확인 → 등급 응모권 지급 → 이벤트 조회·선택 → 응모 접수·차감 → 마감 5분 후 자동 추첨 → 관리자 검토·수동 공개 → 결과·알림 확인. 이벤트 취소는 응모권 반환·취소 알림으로 분기.",
+    "caption": ""
   },
   {
     "type": "image",

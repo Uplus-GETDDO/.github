@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="680" viewBox="0 0 1600 680" role="img" aria-labelledby="title desc"><title id="title">GETDDO 전체 서비스 워크플로우</title><desc id="desc">출석·미션·게임, 보상 조건 확인, 등급 응모권 지급, 이벤트 조회·선택, 응모 접수·차감, 마감 5분 후 자동 추첨, 관리자 검토·수동 공개, 결과·알림 확인. 운영 중 이벤트 취소 시 차감 응모권 반환과 취소 알림으로 분기한다.</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#00805d"/></marker><marker id="cancel" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#b07914"/></marker></defs><rect width="1600" height="680" fill="#fff"/><g font-family="Pretendard,Arial,sans-serif">
+<text x="30" y="46" font-size="24" font-weight="700" fill="#00805d">사용자 · 활동 · 응모</text>
+<path d="M310 175H345" fill="none" stroke="#00805d" stroke-width="3" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M625 175H660" fill="none" stroke="#00805d" stroke-width="3" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M940 175H975" fill="none" stroke="#00805d" stroke-width="3" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M1255 175H1290" fill="none" stroke="#00805d" stroke-width="3" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M1430 255V400" fill="none" stroke="#00805d" stroke-width="3" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="1450" y="331" font-size="20" font-weight="700" fill="#00805d">모집 마감</text>
+<path d="M1290 480H1255" fill="none" stroke="#00805d" stroke-width="3" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M975 480H940" fill="none" stroke="#00805d" stroke-width="3" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M1115 255V320H170V400" fill="none" stroke="#b07914" stroke-width="3" stroke-linejoin="round" marker-end="url(#cancel)" stroke-dasharray="8 6"/>
+<text x="600" y="306" font-size="20" font-weight="700" fill="#986914">운영 중 이벤트 취소 시</text>
+<path d="M310 480H345" fill="none" stroke="#b07914" stroke-width="3" stroke-linejoin="round" marker-end="url(#cancel)" stroke-dasharray="8 6"/>
+<rect x="30" y="95" width="280" height="160" rx="16" fill="#e8faf3" stroke="#9cd9c5" stroke-width="2"/>
+<text x="48" y="124" font-size="18" font-weight="700" fill="#00805d">01</text>
+<text x="48" y="160" font-size="26" font-weight="700" fill="#20262e">출석·미션·게임</text>
+<text x="48" y="198" font-size="20" font-weight="400" fill="#596778">일일·연속 출석</text>
+<text x="48" y="226" font-size="20" font-weight="400" fill="#596778">퀴즈·설문·게임 참여</text>
+<rect x="345" y="95" width="280" height="160" rx="16" fill="#f5f7f8" stroke="#dce4e1" stroke-width="2"/>
+<text x="363" y="124" font-size="18" font-weight="700" fill="#00805d">02</text>
+<text x="363" y="160" font-size="26" font-weight="700" fill="#20262e">보상 조건 확인</text>
+<text x="363" y="198" font-size="20" font-weight="400" fill="#596778">출석·미션 달성 확인</text>
+<text x="363" y="226" font-size="20" font-weight="400" fill="#596778">게임: 서버 판정·최소 점수</text>
+<rect x="660" y="95" width="280" height="160" rx="16" fill="#e8faf3" stroke="#9cd9c5" stroke-width="2"/>
+<text x="678" y="124" font-size="18" font-weight="700" fill="#00805d">03</text>
+<text x="678" y="160" font-size="26" font-weight="700" fill="#20262e">등급 응모권 지급</text>
+<text x="678" y="198" font-size="20" font-weight="400" fill="#596778">출석: 브론즈 고정</text>
+<text x="678" y="226" font-size="20" font-weight="400" fill="#596778">미션·게임: 무작위 등급 1장</text>
+<rect x="975" y="95" width="280" height="160" rx="16" fill="#f5f7f8" stroke="#dce4e1" stroke-width="2"/>
+<text x="993" y="124" font-size="18" font-weight="700" fill="#00805d">04</text>
+<text x="993" y="160" font-size="26" font-weight="700" fill="#20262e">이벤트 조회·선택</text>
+<text x="993" y="198" font-size="20" font-weight="400" fill="#596778">경품·멤버십·기간 확인</text>
+<text x="993" y="226" font-size="20" font-weight="400" fill="#596778">응모권 사용·미사용 선택</text>
+<rect x="1290" y="95" width="280" height="160" rx="16" fill="#e8faf3" stroke="#9cd9c5" stroke-width="2"/>
+<text x="1308" y="124" font-size="18" font-weight="700" fill="#00805d">05</text>
+<text x="1308" y="160" font-size="26" font-weight="700" fill="#20262e">응모 접수·차감</text>
+<text x="1308" y="198" font-size="20" font-weight="400" fill="#596778">등급별 사용할 장수 선택</text>
+<text x="1308" y="226" font-size="20" font-weight="400" fill="#596778">응모·차감·이력 함께 확정</text>
+<text x="660" y="370" font-size="24" font-weight="700" fill="#00805d">추첨 · 관리자 공개 · 사용자 결과</text>
+<text x="30" y="370" font-size="24" font-weight="700" fill="#986914">이벤트 취소 분기</text>
+<rect x="1290" y="400" width="280" height="160" rx="16" fill="#f5f7f8" stroke="#dce4e1" stroke-width="2"/>
+<text x="1308" y="429" font-size="18" font-weight="700" fill="#00805d">06</text>
+<text x="1308" y="465" font-size="26" font-weight="700" fill="#20262e">최초 자동 추첨</text>
+<text x="1308" y="503" font-size="20" font-weight="400" fill="#596778">마감 5분 후 자동 실행</text>
+<text x="1308" y="531" font-size="20" font-weight="400" fill="#596778">후보·가중치·결과 보존</text>
+<rect x="975" y="400" width="280" height="160" rx="16" fill="#e8faf3" stroke="#9cd9c5" stroke-width="2"/>
+<text x="993" y="429" font-size="18" font-weight="700" fill="#00805d">07</text>
+<text x="993" y="465" font-size="26" font-weight="700" fill="#20262e">관리자 검토·공개</text>
+<text x="993" y="503" font-size="20" font-weight="400" fill="#596778">명단 검토·취소·재추첨</text>
+<text x="993" y="531" font-size="20" font-weight="400" fill="#596778">발표 요청 한 번으로 공개</text>
+<rect x="660" y="400" width="280" height="160" rx="16" fill="#fff4d2" stroke="#e6c666" stroke-width="2"/>
+<text x="678" y="429" font-size="18" font-weight="700" fill="#00805d">08</text>
+<text x="678" y="465" font-size="26" font-weight="700" fill="#20262e">결과·알림 확인</text>
+<text x="678" y="503" font-size="20" font-weight="400" fill="#596778">공개 명단·본인 당첨 결과</text>
+<text x="678" y="531" font-size="20" font-weight="400" fill="#596778">결과 발표와 알림 확인</text>
+<rect x="30" y="400" width="280" height="160" rx="16" fill="#fff4d2" stroke="#e6c666" stroke-width="2"/>
+<text x="48" y="429" font-size="18" font-weight="700" fill="#00805d">CANCEL</text>
+<text x="48" y="465" font-size="26" font-weight="700" fill="#20262e">이벤트 취소</text>
+<text x="48" y="503" font-size="20" font-weight="400" fill="#596778">관리자 취소 처리</text>
+<text x="48" y="531" font-size="20" font-weight="400" fill="#596778">취소·반환 함께 확정</text>
+<rect x="345" y="400" width="280" height="160" rx="16" fill="#fff4d2" stroke="#e6c666" stroke-width="2"/>
+<text x="363" y="429" font-size="18" font-weight="700" fill="#00805d">REFUND</text>
+<text x="363" y="465" font-size="26" font-weight="700" fill="#20262e">응모권 반환·알림</text>
+<text x="363" y="503" font-size="20" font-weight="400" fill="#596778">차감했던 응모권 반환</text>
+<text x="363" y="531" font-size="20" font-weight="400" fill="#596778">기존 등급 유지·취소 알림</text>
+<rect x="30" y="594" width="1540" height="60" rx="12" fill="#f5f7f8"/>
+<text x="50" y="620" font-size="20" font-weight="400" fill="#596778">응모권 미사용 이벤트는 차감 없이 접수합니다. 자동 추첨과 관리자 수동 공개는 구분합니다.</text>
+<text x="50" y="646" font-size="20" font-weight="400" fill="#596778">이벤트 취소 시 차감한 응모권을 반환하며, 취소된 이벤트의 이후 응모·추첨·최초 공개는 차단합니다.</text>
+</g></svg>
