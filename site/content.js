@@ -342,7 +342,7 @@ export const rounds = [
   { id: '2', title: '2차 멘토링', subtitle: '구현 진행 사항', description: '프론트엔드 · 백엔드 통합 발표', stage: 'BUILD & REFINE', decks: {
     combined: { enabled: true, slides: secondRoundSlides },
   } },
-  { id: '3', title: '3차 멘토링', subtitle: '시스템 설계', description: '시스템 아키텍처 · ERD · 기술 스택', stage: 'REVIEW & GROW', decks: {
+  { id: '3', title: '3차 멘토링', subtitle: '서비스 소개와 최신 설계', description: '프로젝트 · 주요 기능 · 설계·구현 현황', stage: 'REVIEW & GROW', decks: {
     frontend: { enabled: false, slides: [] }, backend: { enabled: false, slides: [] }, combined: { enabled: true, slides: thirdRoundSlides },
   } },
 ];

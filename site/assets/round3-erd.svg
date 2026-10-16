@@ -29,7 +29,7 @@
 <rect x="1100" y="45" width="320" height="115" rx="4" fill="white" stroke="#9cd9c5" stroke-width="1.6"/><path d="M1100 81h320" stroke="#9cd9c5"/><rect x="1101" y="46" width="318" height="34" rx="3" fill="#e8faf3"/>
 <text x="1114" y="70" font-size="23" font-weight="700" fill="#00684d">event_entries</text>
 <text x="1114" y="111" font-size="20" fill="#596778">PK  id / FK event_id</text>
-<text x="1114" y="141" font-size="20" fill="#596778">FK  participant_id (nullable)</text>
+<text x="1114" y="141" font-size="20" fill="#596778">FK  participant_id? · status</text>
 <rect x="20" y="210" width="320" height="115" rx="4" fill="white" stroke="#9cd9c5" stroke-width="1.6"/><path d="M20 246h320" stroke="#9cd9c5"/><rect x="21" y="211" width="318" height="34" rx="3" fill="#e8faf3"/>
 <text x="34" y="235" font-size="23" font-weight="700" fill="#00684d">events</text>
 <text x="34" y="276" font-size="20" fill="#596778">PK  id : binary(16)</text>
@@ -63,5 +63,5 @@
 <text x="1114" y="441" font-size="20" fill="#596778">PK/FK  draw_run_id</text>
 <text x="1114" y="471" font-size="20" fill="#596778">PK/FK  candidate_id</text>
 </g>
-<text x="20" y="28" text-anchor="start" font-size="20" font-weight="400" fill="#596778">PK 기본 키 · FK 외래 키 · 관계 1 → N</text>
+<text x="20" y="28" text-anchor="start" font-size="20" font-weight="400" fill="#596778">PK 기본 키 · FK 외래 키 · ? NULL 허용 · 관계 1 → N</text>
 </g></svg>

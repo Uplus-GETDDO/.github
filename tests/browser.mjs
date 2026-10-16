@@ -143,43 +143,49 @@ try {
   assert.match(await page.title(), /3차 멘토링.*통합 발표자료/);
   pass('all published slides fit canvas without footer overlap; deep links survive reload');
   const third = rounds.find(round => round.id === '3');
-  assert.deepEqual(third.decks.combined.slides.map(slide => slide.type), ['cover', 'agenda', 'image', 'image', 'tech', 'ending']);
-  assert.deepEqual(third.decks.combined.slides.slice(2, 5).map(slide => slide.title), ['시스템 아키텍처', 'ERD', '기술 스택']);
+  const latest = third.decks.combined.slides;
+  assert.equal(latest.length, 17);
+  assert.deepEqual(latest.map(slide => slide.title), [
+    'GETDDO\n3차 멘토링', '목차', 'GETDDO 서비스 소개', '문제 정의', '해결 방향',
+    '사용자 기능', '관리자 기능', '응모권', '유사 서비스 분석', 'GETDDO의 차별점',
+    '핵심 기술 스택', '시스템 아키텍처', 'ERD', '사용자 이용 흐름', '진행 상태',
+    '멘토님께 여쭤볼 내용', '감사합니다',
+  ]);
+  assert.deepEqual(latest.find(slide => slide.title === 'GETDDO 서비스 소개'), rounds[1].decks.combined.slides.find(slide => slide.title === 'GETDDO 서비스 소개'));
+  assert.deepEqual(latest.find(slide => slide.title === '유사 서비스 분석'), rounds[1].decks.combined.slides.find(slide => slide.title === '유사 서비스 분석'));
+  const adminText = JSON.stringify(latest.find(slide => slide.title === '관리자 기능'));
+  assert.doesNotMatch(adminText, /중단·재개|응모권을 회수|참여 허용·제외/);
+  assert.match(adminText, /자동 추첨/);
+  assert.match(adminText, /수동 공개/);
+  assert.doesNotMatch(JSON.stringify(latest), /같은 입력으로 결과를 다시|추첨 당시 조건으로 결과를 재현/);
+  assert.match(latest.find(slide => slide.type === 'tech').items.find(item => item.icon === 'redis').role, /서버 연결 확인/);
   await page.goto(base);
   await page.locator('a[href="#/mentoring/3/combined/1"]').click();
   await page.waitForSelector('.slide-cover');
   assert.equal(await page.locator('[data-action=prev]').isDisabled(), true);
   assert.equal(await page.locator('.ticket-art').count(), 1);
-  for (const [i, title] of ['시스템 아키텍처', 'ERD', '기술 스택'].entries()) {
+  for (const item of latest[1].items) {
     await page.goto(`${base}#/mentoring/3/combined/2`);
-    await page.locator('.agenda-item').filter({ hasText: title }).click();
-    assert.match(page.url(), new RegExp(`3/combined/${i + 3}$`));
-    await page.waitForFunction(expected => document.querySelector('.slide-heading h1')?.innerText === expected, title);
-    assert.equal(await page.locator('.slide-heading h1').innerText(), title);
-    if (i < 2) {
-      await page.waitForFunction(() => [...document.querySelectorAll('.image-layout img')].every(img => img.complete && img.naturalWidth > 0));
-    }
+    await page.locator('.agenda-item').filter({ hasText: item.title }).click();
+    assert.match(page.url(), new RegExp(`3/combined/${item.target + 1}$`));
+    await page.waitForFunction(expected => document.querySelector('.slide-heading h1')?.innerText === expected, latest[item.target].title);
   }
-  const second = rounds.find(round => round.id === '2');
-  const previousStack = second.decks.combined.slides.find(slide => slide.type === 'tech');
-  const currentStack = third.decks.combined.slides.find(slide => slide.type === 'tech');
+  const previousStack = rounds[1].decks.combined.slides.find(slide => slide.type === 'tech');
+  const currentStack = latest.find(slide => slide.type === 'tech');
   const identity = ({ icon, track, name }) => ({ icon, track, name });
   assert.deepEqual(currentStack.items.map(identity), previousStack.items.map(identity));
   assert.equal(currentStack.notesTitle, previousStack.notesTitle);
   await page.goto(`${base}#/mentoring/2/combined/9`);
   await page.waitForSelector('.diagram-slide');
   const architectureFont = await page.locator('.slide-heading h1').evaluate(el => getComputedStyle(el).fontSize);
-  await page.goto(`${base}#/mentoring/3/combined/3`);
+  await page.goto(`${base}#/mentoring/3/combined/12`);
   await page.waitForSelector('.diagram-slide');
   assert.equal(await page.locator('.slide-heading h1').evaluate(el => getComputedStyle(el).fontSize), architectureFont);
   const heading = await page.locator('.slide-heading').boundingBox();
   const diagram = await page.locator('.image-layout img').boundingBox();
   assert.ok(diagram.x > heading.x + heading.width, 'architecture keeps the original left heading/right diagram');
-  await page.goto(`${base}#/mentoring/3/combined/4`);
-  await page.waitForSelector('.slide-image');
-  assert.equal(await page.locator('.journey-slide').count(), 0);
-  pass('third mentoring matches the original architecture layout, heading size and technology icon columns');
-  for (const i of [1, 2, 3, 4, 5, 6]) {
+  pass('third mentoring carries forward project narrative and design while updating current policies and local Redis progress');
+  for (let i = 1; i <= latest.length; i++) {
     await page.goto(`${base}#/mentoring/3/combined/${i}`);
     await page.evaluate(() => document.fonts.ready);
     await page.waitForFunction(() => [...document.images].every(img => img.complete));
@@ -188,10 +194,10 @@ try {
   assert.equal(await page.locator('.slide-ending .ending-mascot').count(), 1);
   assert.equal(await page.locator('[data-action=next]').isDisabled(), true);
   await page.reload();
-  assert.match(page.url(), /3\/combined\/6$/);
+  assert.match(page.url(), /3\/combined\/17$/);
   await page.keyboard.press('Home');
   await page.waitForSelector('.slide-cover');
-  pass('third mentoring preserves cover, agenda, three content slides and ending; agenda links and boundaries');
+  pass('third mentoring full presentation: agenda destinations, all image assets, boundaries and reload');
   for (const track of ['frontend', 'backend']) {
     await page.goto(`${base}#/mentoring/1/${track}/2`);
     await page.locator('.agenda-item').filter({ hasText: '기술 스택' }).click();
