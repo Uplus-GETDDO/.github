@@ -1,6 +1,5 @@
 // 1·2차의 프로젝트 설명·컨셉을 유지하고 최신 스펙·GD-212 전체 ERD를 반영.
 // 기능 기준: getddo-spec main bda7722. ERD: docs/GD-212 25754f8.
-// Q&A에는 제목만 표시한다.
 export const thirdRoundSlides = [
   {
     "type": "cover",
@@ -48,11 +47,6 @@ export const thirdRoundSlides = [
         "title": "서비스 흐름",
         "description": "활동 · 이벤트 선택 · 응모 · 결과 확인",
         "target": 18
-      },
-      {
-        "title": "Q&A",
-        "description": "",
-        "target": 19
       }
     ]
   },
@@ -522,14 +516,6 @@ export const thirdRoundSlides = [
     "src": "assets/round3-user-journey.svg",
     "alt": "출석은 브론즈, 미션·게임 보상은 무작위 등급 응모권을 얻습니다. 원하는 이벤트에서 보유한 등급별 사용 장수를 선택해 응모하고 발표된 결과를 확인합니다.",
     "caption": ""
-  },
-  {
-    "type": "text",
-    "title": "Q&A",
-    "layout": "qa",
-    "label": "Q&A",
-    "description": "",
-    "paragraphs": []
   },
   {
     "type": "ending",

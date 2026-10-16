@@ -1715,7 +1715,3 @@ kbd {
 .comparison-table th { padding:18px; background:#f3f4f6; font-size:16px; color:var(--muted); }
 .comparison-table td { padding:24px 18px; border-bottom:1px solid var(--line); line-height:1.5; }
 .comparison-table td:first-child { font-weight:700; width:24%; }
-
-.qa-slide .slide-heading h1 {
-  font-size:96px;
-}

@@ -144,19 +144,17 @@ try {
   pass('all published slides fit canvas without footer overlap; deep links survive reload');
   const third = rounds.find(round => round.id === '3');
   const latest = third.decks.combined.slides;
-  assert.equal(latest.length, 21);
+  assert.equal(latest.length, 20);
   assert.deepEqual(latest.map(slide => slide.title), [
     'GETDDO\n3차 멘토링', '목차', 'GETDDO 서비스 소개', '문제 정의', '해결 방향',
     '디자인 시스템', '마스코트 — 타코야끼', '게임 컨셉', '사용자 기능', '관리자 기능', '게임·미션 보상', '응모권 등급', '응모권', '유사 서비스 분석', 'GETDDO의 차별점',
-    '핵심 기술 스택', '시스템 아키텍처', 'ERD', '사용자 이용 흐름', 'Q&A', '감사합니다',
+    '핵심 기술 스택', '시스템 아키텍처', 'ERD', '사용자 이용 흐름', '감사합니다',
   ]);
   assert.deepEqual(latest.find(slide => slide.title === 'GETDDO 서비스 소개').cards[1], rounds[1].decks.combined.slides.find(slide => slide.title === 'GETDDO 서비스 소개').cards[1]);
   assert.deepEqual(latest.find(slide => slide.title === '유사 서비스 분석').rows.map(row => row.slice(0, 2)), rounds[1].decks.combined.slides.find(slide => slide.title === '유사 서비스 분석').rows.map(row => row.slice(0, 2)));
   assert.equal(latest.some(slide => slide.type === 'questions'), false);
   assert.doesNotMatch(JSON.stringify(latest), /로컬|미커밋|PONG|진행 상태|멘토님께/);
-  const qa = latest.find(slide => slide.title === 'Q&A');
-  assert.equal(qa.description, '');
-  assert.deepEqual(qa.paragraphs, []);
+  assert.equal(latest.some(slide => slide.title === 'Q&A'), false);
   assert.equal(latest.find(slide => slide.title === '시스템 아키텍처').description, '');
   const originalConcepts = rounds[0].decks.frontend.slides;
   const mascot = latest.find(slide => slide.type === 'mascot');
@@ -209,12 +207,6 @@ try {
   assert.ok(diagram.width > previousDiagram.width * 1.4, 'architecture image uses the width previously occupied by the heading');
   assert.ok(diagram.height > previousDiagram.height, 'architecture image is taller');
   assert.equal(await page.locator('.image-layout figcaption').innerText(), '');
-  await page.goto(`${base}#/mentoring/3/combined/${latest.findIndex(slide => slide.title === 'Q&A') + 1}`);
-  await page.waitForSelector('.slide-text');
-  assert.equal(await page.locator('.slide-heading h1').innerText(), 'Q&A');
-  assert.equal(await page.locator('.slide-heading > p').innerText(), '');
-  assert.equal(await page.locator('.slide-heading h1').evaluate(el => getComputedStyle(el).fontSize), '96px');
-  assert.equal(await page.locator('.slide-content').innerText(), '');
   const erdIndex = latest.findIndex(slide => slide.title === 'ERD');
   await page.goto(`${base}#/mentoring/3/combined/${erdIndex + 1}`);
   await page.waitForSelector('.image-layout a');
@@ -238,7 +230,7 @@ try {
   assert.equal(await page.locator('.slide-ending .ending-mascot').count(), 1);
   assert.equal(await page.locator('[data-action=next]').isDisabled(), true);
   await page.reload();
-  assert.match(page.url(), /3\/combined\/21$/);
+  assert.match(page.url(), /3\/combined\/20$/);
   await page.keyboard.press('Home');
   await page.waitForSelector('.slide-cover');
   pass('third mentoring full presentation: agenda destinations, all image assets, boundaries and reload');
