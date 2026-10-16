@@ -17,7 +17,7 @@ python3 -m http.server 4173 --directory site
 - 메인: 1·2·3차 멘토링 → 발표 자료 선택. 2차는 통합 발표자료만 제공
 - 1차: 공통 표지 · 목차 · 이벤트 · 응모권 · 관리자 → 트랙별 아키텍처 · 질문 → 공통 감사합니다, 프론트 17장 / 백엔드 19장(개요·진행 상태·처리 흐름 포함)
 - 2차: 서비스 소개 → 사용자·관리자 기능 → 유사 서비스 분석·차별점 → 기술 스택·시스템 아키텍처 → ERD → 사용자 이용 흐름 → 멘토링 질문, 총 13장, `#/mentoring/2/combined/1`
-- 3차: 준비 중, 링크 및 직접 URL 접근 비활성화
+- 3차: 시스템 아키텍처 → ERD → 기술 스택, 통합 3장, `#/mentoring/3/combined/1`
 - 발표: 좌측 슬라이드 목록, 이전/다음, 전체 화면, 현재 슬라이드 주소 공유
 - 방향키 / Page Up·Down / Space: 이동, Home·End: 첫 장·마지막 장
 - F: 전체 화면 전환, 전체 화면 종료 버튼 또는 브라우저 Esc: 종료
@@ -91,22 +91,15 @@ python3 -m http.server 4173 --directory site
 - [캐시워크](https://cashwalk.com/): 걷기·챌린지를 통한 캐시 적립.
 - [이벤터스](https://event-us.kr/): 행사 개설·참가 신청·운영.
 
-3차는 트랙별로 내용과 공개 여부를 관리합니다. 예를 들어 3차 프론트엔드:
+3차는 `site/round3.js`의 `thirdRoundSlides`에서 관리하며 통합 발표 3장만 제공합니다. 1·2차 자료는 유지합니다.
 
-```js
-frontend: {
-  enabled: true,
-  slides: [
-    {
-      type: 'cover', label: '03 / THIRD MENTORING',
-      title: '최종 구현 및 시연', description: '3차 프론트엔드 멘토링', tags: ['구현', '사용자 경험'],
-    },
-    { type: 'text', title: '이번 멘토링에서 나눌 내용', paragraphs: ['팀 발표 내용을 입력합니다.'] },
-  ],
-}
-```
-
-`enabled: true`와 비어 있지 않은 `slides`가 모두 있어야 열립니다. 백엔드는 준비될 때 독립적으로 열 수 있습니다.
+- [3차 발표](https://uplus-getddo.github.io/.github/#/mentoring/3/combined/1): 시스템 아키텍처 → ERD → 기술 스택.
+- 확정 정책: `getddo-spec` main `00f16aa` (2026-10-16). 미결정 항목은 확정 정책으로 반영하지 않습니다.
+- 데이터 모델: `getddo-be` dev `88833ce`의 DBML과 Flyway 마이그레이션. 전체 45개 테이블 중 핵심 12개 테이블의 FK 관계를 요약합니다. V026의 접수·거절 기록도 반영했습니다.
+- [전체 스키마](https://github.com/Uplus-GETDDO/getddo-be/blob/88833cef9971068d8042bb4fd7078db3da65f381/docs/03-database/schema.dbml), [실제 마이그레이션](https://github.com/Uplus-GETDDO/getddo-be/tree/88833cef9971068d8042bb4fd7078db3da65f381/storage/db/src/main/resources/db/migration): DBML에 없는 후속 변경은 마이그레이션이 기준입니다.
+- 프론트 기술: `getddo-fe` dev `cc1ea7b`의 `package.json` 기준. 표시 버전은 선언 범위의 주요 버전이며 설치 버전을 뜻하지 않습니다.
+- 인프라: 백엔드의 2026-10-14~15 배포 기록과 준비 문서 기준. EC2 1대·RDS와 후속 CloudFront·ALB·Redis·이미지 저장·2대 운영을 구분합니다. 운영 자원을 실시간 조회한 결과가 아닙니다.
+- 다이어그램 원본: `site/assets/round3-architecture.svg`, `site/assets/round3-erd.svg`.
 
 ## 디자인과 요구사항
 
@@ -120,17 +113,17 @@ frontend: {
 - 내용은 요약 예시입니다. 아키텍처는 **설계 논의용 템플릿**이며 실제 구현 상태를 의미하지 않습니다.
 - 요구사항 원문에 시간대·관리자 응모권 회수 범위·발표 시점 등의 상충/미정 항목이 남아 있습니다. 발표 전 팀이 확정한 정책으로 내용을 갱신하세요.
 
-## GETDDO/.github에 배포
+## Uplus-GETDDO/.github에 배포
 
-이 폴더 **내부 파일 전체**를 `GETDDO/.github` 저장소의 루트에 둡니다. `presentation-site` 폴더 자체를 한 단계 더 감싸서 올리지 않습니다. 조직 프로필 README를 추가할 경우 `profile/README.md`에 두면 사이트와 분리됩니다.
+이 폴더 **내부 파일 전체**를 `Uplus-GETDDO/.github` 저장소의 루트에 둡니다. `presentation-site` 폴더 자체를 한 단계 더 감싸서 올리지 않습니다. 조직 프로필 README를 추가할 경우 `profile/README.md`에 두면 사이트와 분리됩니다.
 
 1. 저장소 Settings → Pages → Build and deployment → Source를 **GitHub Actions**로 설정합니다.
 2. `main`에 코드를 반영하거나 Actions의 **Deploy mentoring studio**를 수동 실행합니다.
-3. 배포 워크플로 성공 후 `https://getddo.github.io/.github/`에서 확인합니다. 사용자 지정 도메인이 있다면 주소는 다를 수 있습니다.
+3. 배포 워크플로 성공 후 `https://uplus-getddo.github.io/.github/`에서 확인합니다. 사용자 지정 도메인이 있다면 주소는 다를 수 있습니다.
 
 워크플로는 `site/`만 업로드합니다. 메인 파일, 폰트, 원본 색상표 및 요구사항 스냅샷은 이 배포 폴더에 포함됩니다. 발표 자료와 요구사항 링크가 사이트 방문자에게 제공됩니다.
 
-저장소는 사용자 승인에 따라 **public**으로 전환했으며, GitHub Pages의 **GitHub Actions** 배포를 활성화했습니다. 게시 주소는 https://getddo.github.io/.github/ 입니다. 배포 성공 여부는 Actions 결과와 게시 주소에서 확인할 수 있습니다.
+저장소는 사용자 승인에 따라 **public**으로 전환했으며, GitHub Pages의 **GitHub Actions** 배포를 활성화했습니다. 게시 주소는 https://uplus-getddo.github.io/.github/ 입니다. 배포 성공 여부는 Actions 결과와 게시 주소에서 확인할 수 있습니다.
 
 참고: [GitHub Pages 공식 안내](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages)
 

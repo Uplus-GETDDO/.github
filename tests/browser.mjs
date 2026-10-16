@@ -70,12 +70,12 @@ try {
   await page.goto(base);
   await page.evaluate(() => document.fonts.ready);
   assert.equal(await page.locator('.round-card').count(), 3);
-  assert.equal(await page.locator('.track-links a').count(), 4);
-  assert.equal(await page.locator('.track-links button:disabled').count(), 3);
+  assert.equal(await page.locator('.track-links a').count(), 5);
+  assert.equal(await page.locator('.track-links button:disabled').count(), 2);
   assert.equal(await page.locator('.round-card').nth(1).locator('.track-links > *').count(), 1);
   assert.equal(await page.locator('.round-card').nth(1).locator('.track-links a').getAttribute('href'), '#/mentoring/2/combined/1');
   assert.equal(await page.locator('.brand img').evaluate(img => img.complete && img.naturalWidth > 0), true);
-  pass('3 rounds, 4 active tracks, 3 locked tracks; logo and project-path assets');
+  pass('3 rounds, 5 active tracks, 2 locked tracks; logo and project-path assets');
   await page.locator('.track-links a').first().click();
   await page.waitForSelector('.slide-cover');
   assert.match(await page.title(), /프론트엔드/);
@@ -140,8 +140,27 @@ try {
     }
   }
   await page.reload();
-  assert.match(await page.title(), /2차 멘토링.*통합 발표자료/);
+  assert.match(await page.title(), /3차 멘토링.*통합 발표자료/);
   pass('all published slides fit canvas without footer overlap; deep links survive reload');
+  const third = rounds.find(round => round.id === '3');
+  assert.deepEqual(third.decks.combined.slides.map(slide => slide.title), ['시스템 아키텍처', 'ERD', '기술 스택']);
+  await page.goto(base);
+  await page.locator('a[href="#/mentoring/3/combined/1"]').click();
+  await page.waitForSelector('.slide-image');
+  assert.equal(await page.locator('[data-action=prev]').isDisabled(), true);
+  for (let i = 1; i <= 3; i++) {
+    await page.goto(`${base}#/mentoring/3/combined/${i}`);
+    await page.evaluate(() => document.fonts.ready);
+    if (i < 3) {
+      await page.waitForFunction(() => [...document.querySelectorAll('.image-layout img')].every(img => img.complete && img.naturalWidth > 0));
+    }
+    await page.screenshot({ path: `/tmp/getddo-round3-${i}.png` });
+  }
+  await page.keyboard.press('End');
+  assert.equal(await page.locator('[data-action=next]').isDisabled(), true);
+  await page.reload();
+  assert.match(page.url(), /3\/combined\/3$/);
+  pass('third mentoring: exact three-slide order, home link, SVG assets, boundaries and reload');
   for (const track of ['frontend', 'backend']) {
     await page.goto(`${base}#/mentoring/1/${track}/2`);
     await page.locator('.agenda-item').filter({ hasText: '기술 스택' }).click();
@@ -205,7 +224,7 @@ try {
   const original = await readFile(resolve(root, 'content.js'), 'utf8');
   overrideContent = original.replace('frontend: { enabled: false, slides: [] }', "frontend: { enabled: true, slides: makeSlides('frontend') }");
   await page.goto(base);
-  assert.equal(await page.locator('.track-links a').count(), 5);
+  assert.equal(await page.locator('.track-links a').count(), 6);
   await page.goto(`${base}#/mentoring/3/frontend/1`);
   await page.waitForSelector('.slide-cover');
   assert.match(await page.title(), /3차 멘토링/);

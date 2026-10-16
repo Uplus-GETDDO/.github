@@ -1,4 +1,5 @@
 import { secondRoundSlides } from './round2.js';
+import { thirdRoundSlides } from './round3.js';
 
 // 발표 내용은 이 파일에서 편집합니다. 사용 가능한 레이아웃은 README.md 참고.
 export const tracks = {
@@ -331,7 +332,7 @@ const makeCombinedSlides = () => {
   return slides;
 };
 
-// 2차는 통합 자료만 사용합니다. 3차는 slides를 추가하고 enabled: true로 바꾸면 열립니다.
+// 2·3차는 통합 자료를 사용합니다.
 export const rounds = [
   { id: '1', title: '1차 멘토링', subtitle: '요구사항 및 설계', description: '이벤트 · 응모권 · 관리자', stage: 'FOUNDATION', decks: {
     frontend: { enabled: true, slides: makeSlides('frontend') },
@@ -341,7 +342,7 @@ export const rounds = [
   { id: '2', title: '2차 멘토링', subtitle: '구현 진행 사항', description: '프론트엔드 · 백엔드 통합 발표', stage: 'BUILD & REFINE', decks: {
     combined: { enabled: true, slides: secondRoundSlides },
   } },
-  { id: '3', title: '3차 멘토링', subtitle: '최종 구현 및 시연', description: '발표 자료 준비 중', stage: 'REVIEW & GROW', decks: {
-    frontend: { enabled: false, slides: [] }, backend: { enabled: false, slides: [] }, combined: { enabled: false, slides: [] },
+  { id: '3', title: '3차 멘토링', subtitle: '시스템 설계', description: '시스템 아키텍처 · ERD · 기술 스택', stage: 'REVIEW & GROW', decks: {
+    frontend: { enabled: false, slides: [] }, backend: { enabled: false, slides: [] }, combined: { enabled: true, slides: thirdRoundSlides },
   } },
 ];

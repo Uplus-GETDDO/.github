@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/GETDDO/.github/main/site/assets/mascot.svg" width="140" alt="GETDDO 타코야끼 마스코트">
+  <img src="https://raw.githubusercontent.com/Uplus-GETDDO/.github/main/site/assets/mascot.svg" width="140" alt="GETDDO 타코야끼 마스코트">
 </p>
 
 <h1 align="center">U+ GETDDO</h1>
@@ -10,9 +10,9 @@
 </p>
 
 <p align="center">
-  <a href="https://getddo.github.io/.github/">멘토링 발표자료</a> ·
-  <a href="https://github.com/GETDDO/getddo-fe">Frontend</a> ·
-  <a href="https://github.com/GETDDO/getddo-be">Backend</a>
+  <a href="https://uplus-getddo.github.io/.github/">멘토링 발표자료</a> ·
+  <a href="https://github.com/Uplus-GETDDO/getddo-fe">Frontend</a> ·
+  <a href="https://github.com/Uplus-GETDDO/getddo-be">Backend</a>
 </p>
 
 ---
@@ -52,9 +52,9 @@ GETDDO는 LG유플러스 멤버십 사용자를 위한 이벤트 응모 플랫�
 
 | 저장소 | 역할 |
 | --- | --- |
-| [getddo-fe](https://github.com/GETDDO/getddo-fe) | 사용자·관리자 화면과 API 연동 |
-| [getddo-be](https://github.com/GETDDO/getddo-be) | API, 도메인 로직과 데이터 처리 |
-| [getddo-spec](https://github.com/GETDDO/getddo-spec) | 공통 요구사항·도메인 규칙·API 계약 · **팀 전용** |
-| [.github](https://github.com/GETDDO/.github) | 조직 소개와 멘토링 발표자료 |
+| [getddo-fe](https://github.com/Uplus-GETDDO/getddo-fe) | 사용자·관리자 화면과 API 연동 |
+| [getddo-be](https://github.com/Uplus-GETDDO/getddo-be) | API, 도메인 로직과 데이터 처리 |
+| [getddo-spec](https://github.com/Uplus-GETDDO/getddo-spec) | 공통 요구사항·도메인 규칙·API 계약 · **팀 전용** |
+| [.github](https://github.com/Uplus-GETDDO/.github) | 조직 소개와 멘토링 발표자료 |
 
 `getddo-spec`은 비공개 저장소로, 접근 권한이 있는 팀원만 열람할 수 있습니다.
