@@ -1185,6 +1185,22 @@ img {
   display:none;
 }
 
+.image-only-slide .slide-content {
+  position:absolute;
+  top:62px;
+  right:32px;
+  bottom:76px;
+  left:32px;
+  margin-top:0;
+}
+.image-only-slide .image-layout,
+.image-only-slide .image-layout img {
+  height:100%;
+}
+.image-only-slide .image-layout figcaption:empty {
+  display:none;
+}
+
 /* The whole user journey stays readable on one landscape slide. */
 .journey-slide .slide-heading {
   margin-top:8px;

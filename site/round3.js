@@ -46,13 +46,13 @@ export const thirdRoundSlides = [
       },
       {
         "title": "서비스 흐름",
-        "description": "보상·응모·추첨·공개 · 취소·반환",
+        "description": "활동 · 이벤트 선택 · 응모 · 결과 확인",
         "target": 18
       },
       {
         "title": "Q&A",
         "description": "",
-        "target": 20
+        "target": 19
       }
     ]
   },
@@ -493,7 +493,7 @@ export const thirdRoundSlides = [
   },
   {
     "type": "image",
-    "layout": "diagram",
+    "layout": "image-only",
     "title": "시스템 아키텍처",
     "label": "04 / SYSTEM ARCHITECTURE",
     "description": "",
@@ -512,16 +512,6 @@ export const thirdRoundSlides = [
     "caption": "",
     "layout": "journey",
     "zoomable": true
-  },
-  {
-    "type": "image",
-    "layout": "journey",
-    "title": "전체 서비스 워크플로우",
-    "label": "05 / SERVICE WORKFLOW",
-    "description": "활동·보상부터 응모·추첨·관리자 공개까지 · 이벤트 취소 시 응모권 반환",
-    "src": "assets/round3-workflow.svg",
-    "alt": "출석·미션·게임 → 보상 조건 확인 → 등급 응모권 지급 → 이벤트 조회·선택 → 응모 접수·차감 → 마감 5분 후 자동 추첨 → 관리자 검토·수동 공개 → 결과·알림 확인. 이벤트 취소는 응모권 반환·취소 알림으로 분기.",
-    "caption": ""
   },
   {
     "type": "image",

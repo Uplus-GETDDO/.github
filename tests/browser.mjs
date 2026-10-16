@@ -144,11 +144,11 @@ try {
   pass('all published slides fit canvas without footer overlap; deep links survive reload');
   const third = rounds.find(round => round.id === '3');
   const latest = third.decks.combined.slides;
-  assert.equal(latest.length, 22);
+  assert.equal(latest.length, 21);
   assert.deepEqual(latest.map(slide => slide.title), [
     'GETDDO\n3차 멘토링', '목차', 'GETDDO 서비스 소개', '문제 정의', '해결 방향',
     '디자인 시스템', '마스코트 — 타코야끼', '게임 컨셉', '사용자 기능', '관리자 기능', '게임·미션 보상', '응모권 등급', '응모권', '유사 서비스 분석', 'GETDDO의 차별점',
-    '핵심 기술 스택', '시스템 아키텍처', 'ERD', '전체 서비스 워크플로우', '사용자 이용 흐름', 'Q&A', '감사합니다',
+    '핵심 기술 스택', '시스템 아키텍처', 'ERD', '사용자 이용 흐름', 'Q&A', '감사합니다',
   ]);
   assert.deepEqual(latest.find(slide => slide.title === 'GETDDO 서비스 소개').cards[1], rounds[1].decks.combined.slides.find(slide => slide.title === 'GETDDO 서비스 소개').cards[1]);
   assert.deepEqual(latest.find(slide => slide.title === '유사 서비스 분석').rows.map(row => row.slice(0, 2)), rounds[1].decks.combined.slides.find(slide => slide.title === '유사 서비스 분석').rows.map(row => row.slice(0, 2)));
@@ -201,14 +201,13 @@ try {
   assert.equal(currentStack.notesTitle, previousStack.notesTitle);
   await page.goto(`${base}#/mentoring/2/combined/9`);
   await page.waitForSelector('.diagram-slide');
-  const architectureFont = await page.locator('.slide-heading h1').evaluate(el => getComputedStyle(el).fontSize);
+  const previousDiagram = await page.locator('.image-layout img').boundingBox();
   await page.goto(`${base}#/mentoring/3/combined/${latest.findIndex(slide => slide.title === '시스템 아키텍처') + 1}`);
-  await page.waitForSelector('.diagram-slide');
-  assert.equal(await page.locator('.slide-heading h1').evaluate(el => getComputedStyle(el).fontSize), architectureFont);
-  const heading = await page.locator('.slide-heading').boundingBox();
+  await page.waitForSelector('.image-only-slide');
+  assert.equal(await page.locator('.slide-heading').count(), 0);
   const diagram = await page.locator('.image-layout img').boundingBox();
-  assert.ok(diagram.x > heading.x + heading.width, 'architecture keeps the original left heading/right diagram');
-  assert.equal(await page.locator('.slide-heading > p').innerText(), '');
+  assert.ok(diagram.width > previousDiagram.width * 1.4, 'architecture image uses the width previously occupied by the heading');
+  assert.ok(diagram.height > previousDiagram.height, 'architecture image is taller');
   assert.equal(await page.locator('.image-layout figcaption').innerText(), '');
   await page.goto(`${base}#/mentoring/3/combined/${latest.findIndex(slide => slide.title === 'Q&A') + 1}`);
   await page.waitForSelector('.slide-text');
@@ -225,10 +224,8 @@ try {
   assert.match(originalErd.url(), /assets\/round3-erd\.png$/);
   await originalErd.waitForFunction(() => document.querySelector('img')?.naturalWidth === 8030);
   await originalErd.close();
-  const workflow = latest.find(slide => slide.title === '전체 서비스 워크플로우');
-  assert.match(workflow.alt, /5분 후 자동 추첨.*수동 공개/);
-  assert.match(workflow.alt, /취소.*반환.*알림/);
-  pass('complete ERD opens its original image and service workflow covers draw, publication and cancellation');
+  assert.equal(latest.some(slide => slide.title === '전체 서비스 워크플로우'), false);
+  pass('complete ERD opens its original image; removed workflow is absent');
   pass('third mentoring preserves the project narrative and design, explains graded rewards, and excludes work status and questions');
   for (let i = 1; i <= latest.length; i++) {
     await page.goto(`${base}#/mentoring/3/combined/${i}`);
@@ -239,7 +236,7 @@ try {
   assert.equal(await page.locator('.slide-ending .ending-mascot').count(), 1);
   assert.equal(await page.locator('[data-action=next]').isDisabled(), true);
   await page.reload();
-  assert.match(page.url(), /3\/combined\/22$/);
+  assert.match(page.url(), /3\/combined\/21$/);
   await page.keyboard.press('Home');
   await page.waitForSelector('.slide-cover');
   pass('third mentoring full presentation: agenda destinations, all image assets, boundaries and reload');
