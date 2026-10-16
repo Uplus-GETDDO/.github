@@ -144,10 +144,10 @@ try {
   pass('all published slides fit canvas without footer overlap; deep links survive reload');
   const third = rounds.find(round => round.id === '3');
   const latest = third.decks.combined.slides;
-  assert.equal(latest.length, 20);
+  assert.equal(latest.length, 19);
   assert.deepEqual(latest.map(slide => slide.title), [
     'GETDDO\n3차 멘토링', '목차', 'GETDDO 서비스 소개', '문제 정의', '해결 방향',
-    '디자인 시스템', '마스코트 — 타코야끼', '게임 컨셉', '사용자 기능', '관리자 기능', '게임·미션 보상', '응모권 등급', '응모권', '유사 서비스 분석', 'GETDDO의 차별점',
+    '마스코트 — 타코야끼', '게임 컨셉', '사용자 기능', '관리자 기능', '게임·미션 보상', '응모권 등급', '응모권', '유사 서비스 분석', 'GETDDO의 차별점',
     '핵심 기술 스택', '시스템 아키텍처', 'ERD', '사용자 이용 흐름', '감사합니다',
   ]);
   assert.deepEqual(latest.find(slide => slide.title === 'GETDDO 서비스 소개').cards[1], rounds[1].decks.combined.slides.find(slide => slide.title === 'GETDDO 서비스 소개').cards[1]);
@@ -159,7 +159,7 @@ try {
   const originalConcepts = rounds[0].decks.frontend.slides;
   const mascot = latest.find(slide => slide.type === 'mascot');
   assert.deepEqual(mascot.reasons, originalConcepts.find(slide => slide.type === 'mascot').reasons);
-  assert.equal(latest.find(slide => slide.type === 'palette').description, originalConcepts.find(slide => slide.type === 'palette').description);
+  assert.equal(latest.some(slide => slide.type === 'palette'), false);
   const gameConcept = latest.find(slide => slide.title === '게임 컨셉');
   assert.match(JSON.stringify(gameConcept), /타꼬런/);
   assert.match(JSON.stringify(gameConcept), /글자색깔 맞추기/);
@@ -230,7 +230,7 @@ try {
   assert.equal(await page.locator('.slide-ending .ending-mascot').count(), 1);
   assert.equal(await page.locator('[data-action=next]').isDisabled(), true);
   await page.reload();
-  assert.match(page.url(), /3\/combined\/20$/);
+  assert.match(page.url(), /3\/combined\/19$/);
   await page.keyboard.press('Home');
   await page.waitForSelector('.slide-cover');
   pass('third mentoring full presentation: agenda destinations, all image assets, boundaries and reload');

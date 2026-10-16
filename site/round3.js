@@ -25,28 +25,28 @@ export const thirdRoundSlides = [
       },
       {
         "title": "브랜드·게임 컨셉",
-        "description": "디자인 시스템 · 마스코트 · 플레이 경험",
+        "description": "마스코트 · 플레이 경험",
         "target": 5
       },
       {
         "title": "주요 기능",
         "description": "사용자 · 관리자 · 활동별 보상 · 응모권 등급",
-        "target": 8
+        "target": 7
       },
       {
         "title": "유사 서비스·차별점",
         "description": "등급 보상 · 선택 응모 · 반복 참여",
-        "target": 13
+        "target": 12
       },
       {
         "title": "기술·데이터 설계",
         "description": "기술 스택 · 시스템 아키텍처 · ERD",
-        "target": 15
+        "target": 14
       },
       {
         "title": "서비스 흐름",
         "description": "활동 · 이벤트 선택 · 응모 · 결과 확인",
-        "target": 18
+        "target": 17
       }
     ]
   },
@@ -138,12 +138,6 @@ export const thirdRoundSlides = [
         "tone": "mint"
       }
     ]
-  },
-  {
-    "type": "palette",
-    "title": "디자인 시스템",
-    "label": "02 / DESIGN SYSTEM",
-    "description": "브랜드는 마젠타 · 응모권은 옐로 · 놀이는 파스텔"
   },
   {
     "type": "mascot",
