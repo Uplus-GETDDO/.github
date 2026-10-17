@@ -40,13 +40,13 @@ export const thirdRoundSlides = [
       },
       {
         "title": "기술·데이터 설계",
-        "description": "기술 스택 · 시스템 아키텍처 · ERD",
+        "description": "기술 스택 · 시스템 아키텍처 · ERD 개선",
         "target": 14
       },
       {
         "title": "서비스 흐름",
         "description": "활동 · 이벤트 선택 · 응모 · 결과 확인",
-        "target": 17
+        "target": 19
       }
     ]
   },
@@ -497,9 +497,85 @@ export const thirdRoundSlides = [
     "description": "45개 테이블의 전체 데이터 모델 · 이미지를 클릭하면 원본을 확대할 수 있습니다.",
     "src": "assets/round3-erd.png",
     "alt": "docs/GD-212의 2026-10-16 전체 ERD. 도메인별 45개 테이블과 외래 키 관계.",
-    "caption": "멘토링 이후 ERD 개선: 지갑·수량 관리 → 개별 응모권·등급·이력 관리 / 후보 상세 반복 저장 → 최초 후보·실행별 연결 분리",
+    "caption": "멘토링 이후 응모권 추적·게임 검증·추첨 이력·알림 복구를 보완했습니다. 다음 두 페이지에서 변경 전 → 변경 후와 이유를 설명합니다.",
     "layout": "journey",
     "zoomable": true
+  },
+  {
+    "type": "cards",
+    "title": "ERD 개선 — 응모권·게임·알림",
+    "label": "04 / DATA MODEL · 1 OF 2",
+    "track": "backend",
+    "description": "초기 설계 → 현재 ERD · 데이터 추적과 중복·복구 처리 보완",
+    "cards": [
+      {
+        "label": "01 / TICKETS",
+        "title": "지갑 수량 → 한 장별 추적",
+        "text": "지갑·원장의 수량 합계 중심에서 응모권 한 장마다 등급·상태·만료일을 저장하도록 바꿨습니다. 지급·사용·반환·만료 이력을 연결해 어떤 응모권이 바뀌었는지 추적합니다.",
+        "tag": "tickets · ticket_histories",
+        "tone": "mint"
+      },
+      {
+        "label": "02 / GAME PLAY",
+        "title": "토큰 원문 → 시작 기준·해시 보관",
+        "text": "토큰 원문 대신 해시를 저장하고, 시작 당시 규칙·문제 생성 버전·seed를 추가했습니다. 설정이 바뀌어도 같은 기준으로 서버가 결과를 판정할 수 있습니다.",
+        "tag": "game_plays",
+        "tone": "yellow"
+      },
+      {
+        "label": "03 / REWARD",
+        "title": "보상 식별 키 → 플레이·일자 제약",
+        "text": "기존 보상 키에 더해 플레이별 1회와 사용자·게임·KST 날짜별 1회 UNIQUE를 보강했습니다. 결과 재전송이나 서로 다른 플레이의 동시 완료로 중복 지급되는 것을 막습니다.",
+        "tag": "game_reward_claims",
+        "tone": "pink"
+      },
+      {
+        "label": "04 / NOTIFICATION",
+        "title": "누적 횟수 → 복구 구간 분리",
+        "text": "생성·발송의 누적 시도 차수에 복구 시작 차수를 추가했습니다. 관리자가 새 재시도 구간을 열어도 이전 워커의 늦은 완료·실패 기록을 구분할 수 있습니다.",
+        "tag": "notification_jobs · notifications",
+        "tone": "mint"
+      }
+    ],
+    "footnote": "변경 목적: 개별 응모권 추적 · 서버 판정 기준 보존 · 중복 지급 방지 · 실패 작업 복구"
+  },
+  {
+    "type": "cards",
+    "title": "ERD 개선 — 추첨·공개·운영 이력",
+    "label": "04 / DATA MODEL · 2 OF 2",
+    "track": "backend",
+    "description": "초기 설계 → 현재 ERD · 추첨의 입력·결과·실제 공개 근거 분리",
+    "cards": [
+      {
+        "label": "05 / DRAW CANDIDATES",
+        "title": "상세 반복 저장 → 최초 후보 재사용",
+        "text": "재추첨마다 후보 상세를 복사하는 대신 최초 후보·가중치·응모 근거를 보존하고 실행별 연결을 추가했습니다. 입력 중복을 줄이고 각 실행에 참여한 후보를 고정합니다.",
+        "tag": "draw_candidates · draw_run_candidates",
+        "tone": "mint"
+      },
+      {
+        "label": "06 / PUBLICATION",
+        "title": "현재 명단 → 공개 버전별 명단",
+        "text": "현재 당첨 명단 중심 구조를 공개 버전과 포함 결과 연결로 바꿨습니다. 내부 추첨 결과와 사용자에게 실제 공개한 명단을 구분하고 이전 공개 내용도 보존합니다.",
+        "tag": "draw_publications · draw_publication_results",
+        "tone": "yellow"
+      },
+      {
+        "label": "07 / OPERATION HISTORY",
+        "title": "결과 상태 → 실패·검증 이력 분리",
+        "text": "추첨 실행의 실패와 정합성 검사를 별도 테이블로 분리했습니다. 언제 어떤 오류가 발생했고 누가 어떤 항목을 검사했는지 남겨 재처리와 운영 확인의 근거로 사용합니다.",
+        "tag": "draw_failures · draw_checks",
+        "tone": "pink"
+      },
+      {
+        "label": "08 / CANCELLATION",
+        "title": "취소 대상 → 요청별 멱등 키 보강",
+        "text": "당첨 취소 이력에 request_key와 UNIQUE를 추가했습니다. 같은 취소 요청의 재전송을 식별하고 기존 취소·재추첨 연결을 재사용해 중복 처리를 막는 기준을 보강했습니다.",
+        "tag": "award_cancellations",
+        "tone": "mint"
+      }
+    ],
+    "footnote": "변경 목적: 최초 추첨 근거 보존 · 공개 명단 이력 추적 · 실패·검증·취소 재요청 구분"
   },
   {
     "type": "image",
