@@ -497,7 +497,7 @@ export const thirdRoundSlides = [
     "description": "45개 테이블의 전체 데이터 모델 · 이미지를 클릭하면 원본을 확대할 수 있습니다.",
     "src": "assets/round3-erd.png",
     "alt": "docs/GD-212의 2026-10-16 전체 ERD. 도메인별 45개 테이블과 외래 키 관계.",
-    "caption": "",
+    "caption": "멘토링 이후 ERD 개선: 지갑·수량 관리 → 개별 응모권·등급·이력 관리 / 후보 상세 반복 저장 → 최초 후보·실행별 연결 분리",
     "layout": "journey",
     "zoomable": true
   },
