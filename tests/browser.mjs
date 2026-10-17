@@ -159,6 +159,18 @@ try {
   const improvements = latest.filter(slide => slide.title.startsWith('ERD 개선 —'));
   assert.equal(improvements.length, 2);
   assert.equal(improvements.flatMap(slide => slide.cards).length, 8);
+  const erdDiagrams = improvements.flatMap(slide => slide.cards.map(card => card.diagram));
+  assert.equal(new Set(erdDiagrams).size, 8);
+  for (const src of erdDiagrams) {
+    assert.match(src, /^assets\/erd-changes\/[a-z0-9-]+\.png$/);
+    const png = await readFile(resolve(root, src));
+    assert.equal(png.subarray(1, 4).toString(), 'PNG');
+    const diagram = await readFile(resolve(root, src.replace(/\.png$/, '.svg')), 'utf8');
+    assert.match(diagram, /변경 전/);
+    assert.match(diagram, /변경 후/);
+    assert.match(diagram, /97ed4841/);
+    assert.match(diagram, /25754f8/);
+  }
   assert.equal(latest[16].title, 'ERD');
   assert.equal(latest[17], improvements[0]);
   assert.equal(latest[18], improvements[1]);
@@ -225,6 +237,25 @@ try {
   assert.match(originalErd.url(), /assets\/round3-erd\.png$/);
   await originalErd.waitForFunction(() => document.querySelector('img')?.naturalWidth === 8030);
   await originalErd.close();
+  for (const index of [17, 18]) {
+    await page.goto(`${base}#/mentoring/3/combined/${index + 1}`);
+    await page.waitForSelector('a.diagram-card');
+    assert.equal(await page.locator('a.diagram-card').count(), 4);
+    for (let cardIndex = 0; cardIndex < 4; cardIndex++) {
+      const card = page.locator('a.diagram-card').nth(cardIndex);
+      const expected = latest[index].cards[cardIndex].diagram;
+      const [diagram] = await Promise.all([
+        page.waitForEvent('popup'),
+        card.click(),
+      ]);
+      await diagram.waitForLoadState('domcontentloaded');
+      assert.ok(diagram.url().endsWith(expected));
+      await diagram.waitForFunction(() => document.querySelector('img')?.naturalWidth === 1600);
+      await diagram.close();
+    }
+  }
+  pass('all eight ERD improvement cards open their matching before/after table diagrams');
+
   assert.equal(latest.some(slide => slide.title === '전체 서비스 워크플로우'), false);
   pass('complete ERD opens its original image; removed workflow is absent');
   pass('third mentoring preserves the project narrative and design, explains graded rewards, and excludes work status and questions');

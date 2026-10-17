@@ -101,6 +101,7 @@ python3 -m http.server 4173 --directory site
 - 아키텍처는 사용자가 지정한 `docs/getddo-full-architecture.png`를 원본 그대로 사용하며 슬라이드 제목·설명·캡션 없이 넓은 이미지 전용 영역에 표시합니다. 그림은 Vercel·브라우저·CloudFront·내부 ALB·EC2 두 대·공유 RDS/Redis·S3·Parameter Store·SSM의 목표 설계를 표현합니다. 현재 배포 완료 상태를 뜻하지 않습니다.
 - ERD는 `getddo-be`의 `docs/GD-212` 커밋 `25754f8`에 있는 2026-10-16 전체 이미지(45개 테이블)를 그대로 반영했습니다. 클릭하면 원본을 새 창에서 열어 확대할 수 있습니다. V025의 미션 요청 해시와 V026의 접수·거절 기록도 포함합니다. [원본 ERD](https://github.com/Uplus-GETDDO/getddo-be/blob/25754f8eeb7f33365311f3da319664e1f7faa8a5/docs/assets/erd-2026-10-16.png).
 - ERD 다음 18·19페이지에 초기 설계 대비 8가지 개선을 정리했습니다. 한 장별 응모권, 게임 시작 검증 정보, 일일 보상 UNIQUE, 알림 복구 기준 차수, 후보 재사용, 공개 버전, 실패·검증 이력과 취소 멱등 키를 변경 전·후와 이유로 설명합니다. 비교 근거는 BE 초기 DBML `97ed4841`과 2026-10-16 ERD의 해당 테이블·마이그레이션입니다.
+- 18·19페이지의 개선 카드 8개를 누르면 새 창에서 해당 테이블의 전·후 구조 그림을 엽니다. 초기 DBML `97ed4841`과 ERD 기준 `25754f8`에서 주요 컬럼·제약을 발췌했으며, 빨강은 제거·교체, 초록은 추가·보강입니다. 확대용 PNG와 편집 가능한 SVG 원본은 `site/assets/erd-changes/`에 있고, 그림과 SVG에 비교 기준을 기록했습니다.
 - 20페이지는 게임의 기본 정보·한 판 기록·통계·보상과 알림의 할 일 목록·실제 알림함을 나눠 설명합니다. 개선 페이지의 기술 용어는 말로 설명하기 쉬운 표현으로 풀었고 실제 테이블명은 참고로 유지했습니다.
 - 프론트 기술은 dev `cc1ea7b`의 `package.json` 기준입니다. 디자인은 기존 표지·목차·카드·비교표·기술스택 아이콘 배열·아키텍처·사용자 흐름·감사합니다 레이아웃을 유지합니다.
 - 현재 이미지: `site/assets/round3-architecture.png`, `site/assets/round3-erd.png`, `site/assets/round3-user-journey.svg`.

@@ -1715,3 +1715,8 @@ kbd {
 .comparison-table th { padding:18px; background:#f3f4f6; font-size:16px; color:var(--muted); }
 .comparison-table td { padding:24px 18px; border-bottom:1px solid var(--line); line-height:1.5; }
 .comparison-table td:first-child { font-weight:700; width:24%; }
+
+/* Existing ERD image links also serve the improvement cards. */
+.diagram-card { outline:2px solid transparent; outline-offset:3px; }
+.diagram-card:hover, .diagram-card:focus-visible { outline-color:var(--mint-dark); }
+.diagram-link-hint { display:inline-block; margin-left:12px; color:var(--mint-dark); }

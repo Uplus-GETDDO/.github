@@ -506,35 +506,39 @@ export const thirdRoundSlides = [
     "title": "ERD 개선 — 응모권·게임·알림",
     "label": "04 / DATA MODEL · 1 OF 2",
     "track": "backend",
-    "description": "무엇을 저장하고, 왜 따로 나눠 기록하는지",
+    "description": "항목을 누르면 테이블의 변경 전·후 구조를 새 창에서 크게 볼 수 있습니다.",
     "cards": [
       {
         "label": "01 / 응모권",
         "title": "몇 장인지 → 어떤 응모권인지",
         "text": "예전에는 남은 수량을 중심으로 관리했습니다. 이제는 응모권 한 장마다 등급·만료일·사용 여부를 저장하고, 언제 받거나 썼는지도 따로 남깁니다.",
         "tag": "tickets · ticket_histories",
-        "tone": "mint"
+        "tone": "mint",
+        "diagram": "assets/erd-changes/tickets.png"
       },
       {
         "label": "02 / 게임 기록",
         "title": "게임 기록 → 시작할 때의 규칙도 저장",
         "text": "게임을 시작할 때 적용된 규칙과 문제를 만드는 기준을 함께 저장합니다. 나중에 규칙이 바뀌어도 그 판을 시작했을 때의 기준으로 점수를 확인합니다.",
         "tag": "game_plays · 한 판의 시작·결과 기록",
-        "tone": "yellow"
+        "tone": "yellow",
+        "diagram": "assets/erd-changes/game-play.png"
       },
       {
         "label": "03 / 게임 보상",
         "title": "보상 기록 → 하루 한 번 지급 확인",
         "text": "누가 어떤 게임에서 언제 보상받았는지 기록하고, 같은 판과 같은 날의 보상을 중복 저장하지 못하게 했습니다. 결과를 다시 보내도 보상을 두 번 주지 않기 위해서입니다.",
         "tag": "game_reward_claims · 보상받은 기록",
-        "tone": "pink"
+        "tone": "pink",
+        "diagram": "assets/erd-changes/game-reward.png"
       },
       {
         "label": "04 / 알림 재처리",
         "title": "실패 횟수 → 다시 처리한 시도도 구분",
         "text": "실패한 알림을 다시 처리할 때 새로 시작한 시도를 구분해 기록합니다. 예전에 하던 처리의 결과가 늦게 와도 새 처리 상태를 잘못 바꾸지 않도록 했습니다.",
         "tag": "notification_jobs · notifications",
-        "tone": "mint"
+        "tone": "mint",
+        "diagram": "assets/erd-changes/notifications.png"
       }
     ],
     "footnote": "응모권의 사용 내역을 남기고, 게임 보상과 알림이 잘못 중복 처리되지 않도록 보완했습니다."
@@ -544,35 +548,39 @@ export const thirdRoundSlides = [
     "title": "ERD 개선 — 추첨·공개·운영 이력",
     "label": "04 / DATA MODEL · 2 OF 2",
     "track": "backend",
-    "description": "다시 추첨하거나 명단을 바꿔도 이전 기록을 확인할 수 있도록",
+    "description": "항목을 누르면 테이블의 변경 전·후 구조를 새 창에서 크게 볼 수 있습니다.",
     "cards": [
       {
         "label": "05 / 추첨 대상",
         "title": "매번 복사 → 처음 정보를 계속 사용",
         "text": "재추첨할 때 응모자 정보를 전부 복사하지 않고, 처음 저장한 정보를 다시 사용합니다. 대신 이번 추첨에 누가 포함됐는지 연결해 당시 명단을 남깁니다.",
         "tag": "draw_candidates · draw_run_candidates",
-        "tone": "mint"
+        "tone": "mint",
+        "diagram": "assets/erd-changes/draw-candidates.png"
       },
       {
         "label": "06 / 결과 공개",
         "title": "현재 명단만 → 공개했던 명단도 보관",
         "text": "서버에서 뽑은 당첨 결과와 사용자에게 실제 보여 준 명단을 따로 저장합니다. 명단이 바뀌어도 이전에 누구를 공개했는지 확인할 수 있게 했습니다.",
         "tag": "draw_publications · draw_publication_results",
-        "tone": "yellow"
+        "tone": "yellow",
+        "diagram": "assets/erd-changes/publications.png"
       },
       {
         "label": "07 / 실패·검사 기록",
         "title": "상태만 확인 → 과정도 기록",
         "text": "추첨이 언제 왜 실패했는지, 관리자가 무엇을 확인했는지 따로 남깁니다. 문제가 생겼을 때 원인을 찾고 같은 추첨을 다시 처리할 근거로 사용합니다.",
         "tag": "draw_failures · draw_checks",
-        "tone": "pink"
+        "tone": "pink",
+        "diagram": "assets/erd-changes/draw-history.png"
       },
       {
         "label": "08 / 당첨 취소",
         "title": "취소 대상 확인 → 같은 요청도 구분",
         "text": "취소 요청마다 구분 번호를 남깁니다. 통신 문제나 버튼 연타로 같은 요청이 다시 들어와도, 같은 취소와 재추첨을 두 번 만들지 않도록 했습니다.",
         "tag": "award_cancellations · 취소 요청·사유 기록",
-        "tone": "mint"
+        "tone": "mint",
+        "diagram": "assets/erd-changes/cancellations.png"
       }
     ],
     "footnote": "처음 추첨부터 결과 공개·실패·검사·취소까지 어떤 일이 있었는지 남깁니다."
