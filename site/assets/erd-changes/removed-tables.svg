@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1160" viewBox="0 0 1600 1160" role="img" aria-labelledby="title desc">
+<title id="title">없앤 테이블과 역할 이동</title>
+<desc id="desc">변경 전 9개 테이블의 변경 후 역할과 간단한 이유. 초기 DBML 97ed4841과 2026-10-16 설계 25754f8 비교.</desc>
+<metadata>before: 97ed4841 ; after: 25754f8eeb7f33365311f3da319664e1f7faa8a5 ; docs/03-database/schema.dbml</metadata>
+<style>@font-face{font-family:Pretendard;src:url(../PretendardVariable.woff2)}text{font-family:Pretendard,sans-serif}</style>
+<rect width="1600" height="1160" fill="#f7fafb"/>
+<text x="48" y="60" font-size="38" fill="#26313a" font-weight="750">없앤 테이블은 어떤 역할로 바뀌었나요?</text>
+<text x="48" y="101" font-size="23" fill="#26313a" font-weight="400">테이블 이름이 없어졌다고 기능까지 없앤 것은 아닙니다. 아래 다섯 묶음으로 구분했습니다.</text>
+<text x="48" y="157" font-size="27" fill="#a43d37" font-weight="700">변경 전 · 초기 설계</text>
+<text x="665" y="157" font-size="27" fill="#087658" font-weight="700">변경 후 · 2026-10-16 설계 / 이유</text>
+<rect x="48" y="183" width="1504" height="158" rx="10" fill="white" stroke="#ced8de"/>
+<text x="68" y="213" font-size="18" fill="#a43d37" font-weight="700">역할 이동</text>
+<text x="68" y="248" font-size="24" fill="#26313a" font-weight="600">ticket_wallets</text>
+<text x="68" y="280" font-size="24" fill="#26313a" font-weight="600">ticket_ledger</text>
+<text x="68" y="312" font-size="24" fill="#26313a" font-weight="600">ticket_ledger_allocations</text>
+<text x="600" y="266" font-size="32" fill="#52616b" font-weight="700">→</text>
+<text x="665" y="226" font-size="24" fill="#087658" font-weight="650">tickets + ticket_histories</text>
+<text x="665" y="262" font-size="21" fill="#26313a" font-weight="400">수량 잔액·원장 배분 대신 응모권 한 장과 사용 내역으로 관리합니다.</text>
+<rect x="48" y="357" width="1504" height="158" rx="10" fill="white" stroke="#ced8de"/>
+<text x="68" y="387" font-size="18" fill="#a43d37" font-weight="700">구조 재편</text>
+<text x="68" y="422" font-size="24" fill="#26313a" font-weight="600">publications</text>
+<text x="68" y="454" font-size="24" fill="#26313a" font-weight="600">current_awards</text>
+<text x="600" y="440" font-size="32" fill="#52616b" font-weight="700">→</text>
+<text x="665" y="400" font-size="24" fill="#087658" font-weight="650">draw_publications + draw_publication_results</text>
+<text x="665" y="436" font-size="21" fill="#26313a" font-weight="400">현재 명단만 덮어쓰지 않고, 공개했던 명단을 버전별로 남깁니다.</text>
+<rect x="48" y="531" width="1504" height="158" rx="10" fill="white" stroke="#ced8de"/>
+<text x="68" y="561" font-size="18" fill="#a43d37" font-weight="700">범위 제외</text>
+<text x="68" y="596" font-size="24" fill="#26313a" font-weight="600">ticket_recovery_targets</text>
+<text x="600" y="614" font-size="32" fill="#52616b" font-weight="700">→</text>
+<text x="665" y="574" font-size="24" fill="#087658" font-weight="650">응모권 회수 기능은 이번 범위에서 제외</text>
+<text x="665" y="610" font-size="21" fill="#26313a" font-weight="400">회수 결정 전용 테이블도 설계에서 제외했습니다. 이벤트 취소 반환은 유지합니다.</text>
+<rect x="48" y="705" width="1504" height="158" rx="10" fill="white" stroke="#ced8de"/>
+<text x="68" y="735" font-size="18" fill="#a43d37" font-weight="700">별도 작업 표 제거</text>
+<text x="68" y="770" font-size="24" fill="#26313a" font-weight="600">ticket_refund_jobs</text>
+<text x="600" y="788" font-size="32" fill="#52616b" font-weight="700">→</text>
+<text x="665" y="748" font-size="24" fill="#087658" font-weight="650">tickets + ticket_histories의 원본 사용·반환 연결</text>
+<text x="665" y="784" font-size="21" fill="#26313a" font-weight="400">별도 원장 기반 작업 표 대신 같은 응모권의 반환 이력으로 추적합니다.</text>
+<text x="665" y="820" font-size="21" fill="#26313a" font-weight="400">이벤트 취소와 반환을 함께 완료하는 방식은 유지합니다.</text>
+<rect x="48" y="879" width="1504" height="158" rx="10" fill="white" stroke="#ced8de"/>
+<text x="68" y="909" font-size="18" fill="#a43d37" font-weight="700">이름 정리</text>
+<text x="68" y="944" font-size="24" fill="#26313a" font-weight="600">mission_quizzes</text>
+<text x="68" y="976" font-size="24" fill="#26313a" font-weight="600">reward_claims</text>
+<text x="600" y="962" font-size="32" fill="#52616b" font-weight="700">→</text>
+<text x="665" y="922" font-size="24" fill="#087658" font-weight="650">mission_quiz_questions / mission_reward_claims</text>
+<text x="665" y="958" font-size="21" fill="#26313a" font-weight="400">퀴즈 문제·미션 보상이라는 역할을 이름으로 드러내도록 정리했습니다.</text>
+<text x="665" y="994" font-size="21" fill="#26313a" font-weight="400">두 기능을 없앤 것은 아닙니다. 관련 제약도 보강했습니다.</text>
+<text x="48" y="1092" font-size="19" fill="#52616b" font-weight="400">기준: 초기 DBML(97ed4841) → 2026-10-16 설계(25754f8) · 기존 이름 9개 모두 확인</text>
+<text x="48" y="1127" font-size="19" fill="#52616b" font-weight="400">설계 비교이며 운영 DB의 데이터 삭제를 뜻하지 않습니다. 응모권·공개 테이블의 상세 구조는 앞의 개선 카드를 눌러 확인하세요.</text>
+</svg>
