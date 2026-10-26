@@ -13,7 +13,8 @@
   <a href="https://getddo-fe.vercel.app">서비스 체험</a> ·
   <a href="https://uplus-getddo.github.io/.github/">멘토링 발표자료</a> ·
   <a href="https://github.com/Uplus-GETDDO/getddo-fe">Frontend</a> ·
-  <a href="https://github.com/Uplus-GETDDO/getddo-be">Backend</a>
+  <a href="https://github.com/Uplus-GETDDO/getddo-be">Backend</a> ·
+  <a href="https://github.com/Uplus-GETDDO/getddo-infra">Infrastructure</a>
 </p>
 
 ---
@@ -91,10 +92,10 @@
 | UI 상태·폼·스타일 | Zustand · React Context · React Hook Form · Tailwind CSS · shadcn/ui |
 | Backend | Java 21 · Spring Boot · Spring MVC · Spring Data JPA · JDBC |
 | 데이터·변환 | MySQL 8.4 · Flyway · MapStruct |
-| 요청 제한·차단 | Redis · Lua |
+| 요청 제한·차단 | Redis · Lua · AWS WAF |
 | 이미지 | AWS S3 · CloudFront |
-| 테스트·관측 | JUnit · Testcontainers · S3Mock · CloudWatch · Prometheus · Grafana |
-| 실행·배포 | Docker · Compose · GitHub Actions · ECR · EC2 · ALB · RDS · SSM |
+| 테스트·관측 | JUnit · Testcontainers · S3Mock · Locust · CloudWatch · Prometheus · Grafana |
+| 실행·배포 | Terraform · Docker · Compose · GitHub Actions · ECR · EC2 · ALB · RDS · SSM |
 
 상세 버전·설정·로컬 실행 방법은 각 코드 저장소의 README를 따릅니다.
 
@@ -119,6 +120,7 @@
 | ---------------------------------------------------------- | -------------------------------------------------- |
 | [getddo-fe](https://github.com/Uplus-GETDDO/getddo-fe)     | 사용자·관리자 화면과 API 연동                      |
 | [getddo-be](https://github.com/Uplus-GETDDO/getddo-be)     | API, 도메인 로직과 데이터 처리                     |
+| [getddo-infra](https://github.com/Uplus-GETDDO/getddo-infra) | AWS 인프라·모니터링·부하 테스트 환경 관리 |
 | [getddo-spec](https://github.com/Uplus-GETDDO/getddo-spec) | 공개 공용 명세 원본: 요구사항·도메인 규칙·API 계약 |
 | [.github](https://github.com/Uplus-GETDDO/.github)         | 조직 소개와 멘토링 발표자료                        |
 
