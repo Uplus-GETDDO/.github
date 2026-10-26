@@ -67,7 +67,7 @@
 
 ## 아키텍처와 핵심 설계
 
-[![GETDDO 시스템 아키텍처](https://raw.githubusercontent.com/Uplus-GETDDO/getddo-be/dev/docs/assets/cloud-architecture.png)](https://github.com/Uplus-GETDDO/getddo-be#아키텍처)
+[![GETDDO 시스템 아키텍처](https://raw.githubusercontent.com/Uplus-GETDDO/.github/main/assets/system-architecture.png)](https://github.com/Uplus-GETDDO/.github/blob/main/assets/system-architecture.png)
 
 | 책임 | 적용한 방식 | 상세 |
 | --- | --- | --- |
