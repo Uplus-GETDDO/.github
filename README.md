@@ -1,3 +1,16 @@
+# 🏆유레카 최종융합프로젝트 우수상 프로젝트🏆
+
+<details>
+<summary>[2026. 10. 28] LG U+ 유레카 최종융합프로젝트 우수상</summary>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Uplus-GETDDO/.github/main/profile/assets/getddo-excellence-award.png" alt="유레카 최종융합프로젝트 우수상 증서 — 3조 얻어가유" width="720">
+</p>
+
+[원본 PDF 열기](https://github.com/Uplus-GETDDO/.github/blob/main/profile/assets/getddo-excellence-award.pdf)
+
+</details>
+
 # GETDDO · Mentoring Studio
 
 민트 컬러와 응모권 모티프를 사용한 멘토링 발표 웹 템플릿입니다. 브라우저에서 16:9 슬라이드를 넘기며 발표합니다. PowerPoint 파일을 생성하는 도구는 아닙니다.
